@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Upcoming Events</title>
+<style>
+:root{--bg:#0d1b2a;--panel:#14283d;--text:#f2f6fa;--muted:#9db3c8;--accent:#ffb703;--line:#24405c}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;cursor:none}
+header{height:11vh;display:flex;align-items:center;justify-content:space-between;padding:0 3vw;background:var(--panel);border-bottom:.4vh solid var(--accent)}
+header h1{font-size:4.2vh;letter-spacing:.05em;text-transform:uppercase}
+#clock{text-align:right}
+#time{font-size:4.6vh;font-weight:700}
+#date{font-size:2.2vh;color:var(--muted)}
+#view{height:89vh;overflow:hidden;position:relative}
+#view::before,#view::after{content:"";position:absolute;top:0;bottom:0;width:4vw;z-index:2;pointer-events:none}
+#view::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+#view::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+#list{display:flex;align-items:center;gap:2.5vw;padding:0 3vw;height:100%;width:max-content;will-change:transform}
+.card{flex:0 0 27vw;height:72vh;background:var(--panel);border-radius:2vh;border-top:1.2vh solid var(--accent);padding:3.5vh 2vw;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 1vh 3vh rgba(0,0,0,.35)}
+.card.today{border-top-color:#4ade80}
+.badge{font-size:2.5vh;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.card.today .badge{color:#4ade80}
+.dnum{font-size:15vh;font-weight:800;line-height:1;margin-top:1vh}
+.mon{font-size:3.4vh;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.5vh}
+.sep{height:.2vh;background:var(--line);margin:3vh 0}
+.title{font-size:4.2vh;font-weight:700;line-height:1.15;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.when{font-size:3vh;font-weight:600;margin-top:2vh}
+.loc{font-size:2.5vh;color:var(--muted);margin-top:1vh;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.msg{width:100vw;font-size:3.4vh;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="ttl">Upcoming Events</h1>
+  <div id="clock"><div id="time"></div><div id="date"></div></div>
+</header>
+<div id="view"><div id="list"><div class="msg">Loading events…</div></div></div>
+
+<script>
+// ---------- CONFIG (can also be overridden with URL params: ?url=…&speed=40&days=45&title=…) ----------
+const P = new URLSearchParams(location.search);
+const ICS_URL = P.get('url') || 'https://calendar.google.com/calendar/ical/e3be74e52d7b0ce55cc48089467d1ec1e0ceeae08af71b9148b07fefcd16db76%40group.calendar.google.com/public/basic.ics';
+const SPEED = +(P.get('speed') || 60);          // scroll speed, px per second
+const DIR = (P.get('dir') || 'left').toLowerCase() === 'right' ? 'right' : 'left'; // direction the cards move
+const DAYS_AHEAD = +(P.get('days') || 45);      // how far ahead to show
+const REFRESH_MIN = +(P.get('refresh') || 15);  // re-download calendar every N minutes
+if (P.get('title')) document.getElementById('ttl').textContent = P.get('title');
+// Google's ICS feed blocks direct browser requests (no CORS), so proxies are tried as fallback.
+// If you host a copy of the .ics on your own server, pass it via ?url= and it will load directly.
+const PROXIES = [
+  u => u,
+  u => 'https://corsproxy.io/?' + encodeURIComponent(u),
+  u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u)
+];
+
+// ---------- ICS parsing ----------
+function parseDate(val, params) {
+  const allDay = /VALUE=DATE(?!-)/.test(params) || val.length === 8;
+  const m = val.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2})(Z?))?/);
+  if (!m) return null;
+  const [, y, mo, d, h = 0, mi = 0, s = 0, z] = m;
+  const date = z ? new Date(Date.UTC(+y, mo - 1, +d, +h, +mi, +s)) : new Date(+y, mo - 1, +d, +h, +mi, +s);
+  return { date, allDay };
+}
+function unescapeText(t) { return (t || '').replace(/\\n/gi, ' ').replace(/\\([,;\\])/g, '$1'); }
+
+function parseICS(text) {
+  const lines = text.replace(/\r?\n[ \t]/g, '').split(/\r?\n/);
+  const events = []; let cur = null;
+  for (const line of lines) {
+    if (line === 'BEGIN:VEVENT') { cur = { exdates: [] }; continue; }
+    if (line === 'END:VEVENT') { if (cur && cur.start) events.push(cur); cur = null; continue; }
+    if (!cur) continue;
+    const i = line.indexOf(':'); if (i < 0) continue;
+    const left = line.slice(0, i), val = line.slice(i + 1);
+    const name = left.split(';')[0].toUpperCase(), params = left.slice(name.length);
+    if (name === 'SUMMARY') cur.title = unescapeText(val);
+    else if (name === 'LOCATION') cur.loc = unescapeText(val);
+    else if (name === 'DTSTART') { const p = parseDate(val, params); if (p) { cur.start = p.date; cur.allDay = p.allDay; } }
+    else if (name === 'DTEND') { const p = parseDate(val, params); if (p) cur.end = p.date; }
+    else if (name === 'RRULE') cur.rrule = Object.fromEntries(val.split(';').map(x => x.split('=')));
+    else if (name === 'EXDATE') val.split(',').forEach(v => { const p = parseDate(v, params); if (p) cur.exdates.push(p.date.toDateString()); });
+    else if (name === 'STATUS' && val === 'CANCELLED') cur.cancelled = true;
+  }
+  return events.filter(e => !e.cancelled);
+}
+
+// ---------- Recurrence expansion ----------
+const DOW = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+function matchesRule(d, s, r) {
+  const iv = +(r.INTERVAL || 1), f = r.FREQ;
+  const dayDiff = Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - new Date(s.getFullYear(), s.getMonth(), s.getDate())) / 864e5);
+  if (f === 'DAILY') return dayDiff % iv === 0;
+  if (f === 'WEEKLY') {
+    const days = r.BYDAY ? r.BYDAY.split(',').map(x => x.slice(-2)) : [DOW[s.getDay()]];
+    const wk = Math.floor((dayDiff + s.getDay()) / 7);
+    return wk % iv === 0 && days.includes(DOW[d.getDay()]);
+  }
+  const monthDiff = (d.getFullYear() - s.getFullYear()) * 12 + d.getMonth() - s.getMonth();
+  if (f === 'MONTHLY' || f === 'YEARLY') {
+    if (f === 'MONTHLY' ? monthDiff % iv !== 0 : (d.getFullYear() - s.getFullYear()) % iv !== 0 || d.getMonth() !== s.getMonth()) return false;
+    if (r.BYDAY) {
+      return r.BYDAY.split(',').some(x => {
+        const m = x.match(/^(-?\d)?(\w\w)$/); if (!m || DOW[d.getDay()] !== m[2]) return false;
+        if (!m[1]) return true;
+        const n = +m[1], nth = Math.ceil(d.getDate() / 7);
+        const last = Math.ceil((new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate() - d.getDate() + 1) / 7);
+        return n > 0 ? nth === n : last === -n;
+      });
+    }
+    const md = r.BYMONTHDAY ? +r.BYMONTHDAY : s.getDate();
+    return d.getDate() === md;
+  }
+  return false;
+}
+
+function expand(events, from, to) {
+  const out = [];
+  for (const e of events) {
+    const dur = e.end ? e.end - e.start : (e.allDay ? 864e5 : 0);
+    if (!e.rrule) { out.push({ ...e, end: new Date(e.start.getTime() + dur) }); continue; }
+    const until = e.rrule.UNTIL ? parseDate(e.rrule.UNTIL, '').date : null;
+    const maxCount = e.rrule.COUNT ? +e.rrule.COUNT : Infinity;
+    let count = 0;
+    const d = new Date(e.start.getFullYear(), e.start.getMonth(), e.start.getDate());
+    for (let n = 0; n < 4000 && d <= to; n++, d.setDate(d.getDate() + 1)) {
+      if (!matchesRule(d, e.start, e.rrule)) continue;
+      const st = new Date(d.getFullYear(), d.getMonth(), d.getDate(), e.start.getHours(), e.start.getMinutes());
+      if (st < e.start) continue;
+      if (until && st > until) break;
+      if (++count > maxCount) break;
+      if (e.exdates.includes(st.toDateString())) continue;
+      out.push({ ...e, start: st, end: new Date(st.getTime() + dur) });
+    }
+  }
+  return out.filter(e => e.end > from && e.start <= to).sort((a, b) => a.start - b.start);
+}
+
+// ---------- Rendering ----------
+const esc = s => (s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmtT = d => d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+function render(evs) {
+  const list = document.getElementById('list');
+  if (!evs.length) { list.innerHTML = '<div class="msg">No upcoming events</div>'; cancelAnimationFrame(raf); list.style.transform = ''; return; }
+  const now = new Date(), today0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  list.innerHTML = evs.map(e => {
+    const d = e.start < today0 ? today0 : e.start;
+    const diff = Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - today0) / 864e5);
+    const label = diff <= 0 ? 'Today' : diff === 1 ? 'Tomorrow' : d.toLocaleDateString([], { weekday: 'long' });
+    const when = e.allDay ? 'All day' : fmtT(e.start) + (e.end > e.start ? ' – ' + fmtT(e.end) : '');
+    return `<div class="card${diff <= 0 ? ' today' : ''}"><div class="badge">${esc(label)}</div>` +
+      `<div class="dnum">${d.getDate()}</div><div class="mon">${d.toLocaleDateString([], { month: 'long' })}</div><div class="sep"></div>` +
+      `<div class="title">${esc(e.title || 'Untitled')}</div><div class="when">🕒 ${when}</div>` +
+      (e.loc ? `<div class="loc">📍 ${esc(e.loc)}</div>` : '') + '</div>';
+  }).join('');
+  startScroll();
+}
+
+// ---------- Auto-scroll sideways (seamless loop when cards overflow) ----------
+let raf = null;
+function startScroll() {
+  cancelAnimationFrame(raf);
+  const view = document.getElementById('view'), list = document.getElementById('list');
+  list.style.transform = 'translateX(0)';
+  if (list.scrollWidth <= view.clientWidth) return;   // fits on screen: stay still
+  const n = list.children.length;
+  list.innerHTML += list.innerHTML;                   // duplicate for seamless loop
+  const cards = list.children;
+  const loopW = cards[n].offsetLeft - cards[0].offsetLeft;
+  let x = 0, prev = performance.now(), pause = 3000;
+  const step = t => {
+    const dt = t - prev; prev = t;
+    if (pause > 0) pause -= dt;
+    else { x += SPEED * dt / 1000; if (x >= loopW) x -= loopW; }
+    list.style.transform = `translateX(${DIR === 'left' ? -x : x - loopW}px)`;
+    raf = requestAnimationFrame(step);
+  };
+  raf = requestAnimationFrame(step);
+}
+
+// ---------- Data loading ----------
+let lastEvents = [];
+async function load() {
+  for (const p of PROXIES) {
+    try {
+      const r = await fetch(p(ICS_URL), { cache: 'no-store' });
+      if (!r.ok) continue;
+      const txt = await r.text();
+      if (!txt.includes('BEGIN:VCALENDAR')) continue;
+      lastEvents = parseICS(txt);
+      const now = new Date(), to = new Date(now.getTime() + DAYS_AHEAD * 864e5);
+      render(expand(lastEvents, now, to));
+      return;
+    } catch (e) { /* try next proxy */ }
+  }
+  if (!lastEvents.length) document.getElementById('list').innerHTML = '<div class="msg">Unable to load calendar.<br>Retrying…</div>';
+}
+load();
+setInterval(load, REFRESH_MIN * 60000);
+
+// ---------- Clock ----------
+function tick() {
+  const n = new Date();
+  document.getElementById('time').textContent = fmtT(n);
+  document.getElementById('date').textContent = n.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+}
+tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>

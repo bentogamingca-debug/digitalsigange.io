@@ -8,29 +8,34 @@
   :root{
     --bg:#12151F; --panel:#1C2033; --ink:#F4F5FA; --muted:#8E94AD;
     --up:#3DDC97; --down:#FF6B6B; --gold:#FFD23F;
-    --card-h:78vh; /* tweak for your screen */
+    --u:min(1vh,1.6vw); /* base unit: scales for landscape or portrait screens */
+    --gap:calc(var(--u)*2);
   }
   *{box-sizing:border-box;margin:0}
   html,body{height:100%;background:var(--bg);color:var(--ink);overflow:hidden;
     font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif}
-  body{display:flex;flex-direction:column;justify-content:center;gap:2.2vh}
-  header{display:flex;align-items:baseline;justify-content:space-between;padding:0 3vw}
-  header h1{font-size:4.2vh;font-weight:800;letter-spacing:.01em;color:var(--gold)}
-  header span{font-size:2.4vh;color:var(--muted)}
-  .viewport{overflow:hidden;width:100%}
-  .track{display:flex;gap:2vw;width:max-content;padding-left:2vw;
+  body{display:flex;flex-direction:column;padding:calc(var(--u)*3) 0 0}
+  header{display:flex;align-items:baseline;justify-content:space-between;
+    padding:0 calc(var(--u)*3) calc(var(--u)*2)}
+  header h1{font-size:calc(var(--u)*5);font-weight:800;color:var(--gold)}
+  header span{font-size:calc(var(--u)*2.6);color:var(--muted)}
+  .viewport{flex:1;min-height:0;overflow:hidden;
+    -webkit-mask-image:linear-gradient(transparent,#000 4%,#000 96%,transparent);
+    mask-image:linear-gradient(transparent,#000 4%,#000 96%,transparent)}
+  .track{display:flex;flex-direction:column;gap:var(--gap);padding:0 calc(var(--u)*3) var(--gap);
     animation:scroll var(--dur,60s) linear infinite}
-  @keyframes scroll{to{transform:translateX(-50%)}}
-  .card{flex:none;height:var(--card-h);aspect-ratio:2/3.05;background:var(--panel);
-    border-radius:1.2vh;padding:1.4vh;display:flex;flex-direction:column;gap:1vh;
-    border-bottom:.7vh solid var(--muted)}
-  .card.up{border-bottom-color:var(--up)} .card.down{border-bottom-color:var(--down)}
-  .card img{width:100%;flex:1;min-height:0;object-fit:contain}
-  .name{font-size:2.6vh;font-weight:800;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .set{font-size:1.9vh;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .row{display:flex;justify-content:space-between;align-items:baseline}
-  .price{font-size:4vh;font-weight:800}
-  .chg{font-size:2.3vh;font-weight:700}
+  @keyframes scroll{to{transform:translateY(-50%)}}
+  .card{flex:none;height:calc(var(--u)*24);background:var(--panel);border-radius:calc(var(--u)*1.2);
+    padding:calc(var(--u)*2);display:flex;align-items:center;gap:calc(var(--u)*3);
+    border-left:calc(var(--u)*.9) solid var(--muted)}
+  .card.up{border-left-color:var(--up)} .card.down{border-left-color:var(--down)}
+  .card img{height:100%;aspect-ratio:2/3;object-fit:contain;flex:none}
+  .info{flex:1;min-width:0;display:flex;flex-direction:column;gap:calc(var(--u)*.8)}
+  .name{font-size:calc(var(--u)*4.2);font-weight:800;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .set{font-size:calc(var(--u)*2.6);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .row{display:flex;justify-content:space-between;align-items:baseline;margin-top:calc(var(--u)*1.5)}
+  .price{font-size:calc(var(--u)*6.5);font-weight:800}
+  .chg{font-size:calc(var(--u)*3.6);font-weight:700}
   .up .chg{color:var(--up)} .down .chg{color:var(--down)}
   @media (prefers-reduced-motion:reduce){.track{animation-duration:240s}}
 </style>
@@ -44,7 +49,7 @@
 const CONFIG = {
   DATA_URL: "",          // e.g. "https://your-server.com/trending.json" (see JSON shape below). Empty = use snapshot.
   REFRESH_MS: 5 * 60e3,  // how often to re-pull the feed
-  PX_PER_SEC: 90,        // scroll speed
+  PX_PER_SEC: 60,        // scroll speed
   IMG: id => `https://public.getcollectr.com/public-assets/products/product_${id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata`
 };
 
@@ -96,10 +101,12 @@ function cardHTML(c){
   const arrow = c.change > 0 ? "▲" : c.change < 0 ? "▼" : "";
   return `<div class="card ${dir}">
     <img src="${CONFIG.IMG(c.id)}" alt="" onerror="this.style.visibility='hidden'">
-    <div class="name">${c.name}</div>
-    <div class="set">${c.set} · ${c.number}</div>
-    <div class="row"><span class="price">${fmt(c.price)}</span>
-      <span class="chg">${arrow} ${Math.abs(c.pct).toFixed(1)}%</span></div>
+    <div class="info">
+      <div class="name">${c.name}</div>
+      <div class="set">${c.set} · ${c.number}</div>
+      <div class="row"><span class="price">${fmt(c.price)}</span>
+        <span class="chg">${arrow} ${Math.abs(c.pct).toFixed(1)}%</span></div>
+    </div>
   </div>`;
 }
 
@@ -107,7 +114,7 @@ function render(cards){
   const html = cards.map(cardHTML).join("");
   track.innerHTML = html + html;              // duplicated for a seamless loop
   requestAnimationFrame(() => {
-    const half = track.scrollWidth / 2;
+    const half = track.scrollHeight / 2;
     track.style.setProperty("--dur", (half / CONFIG.PX_PER_SEC) + "s");
   });
   document.getElementById("stamp").textContent =

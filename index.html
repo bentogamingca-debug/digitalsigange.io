@@ -1,2 +1,145 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="dns-prefetch" href="//127.0.0.1"><title>CC Libraries</title><script>window.nodeRequire = (window.cep_node && window.cep_node.require) || window.require || function () {};
-        window.process = window.process || (window.cep_node && window.cep_node.process);</script><script defer="defer" src="main.js"></script><link href="styles.css" rel="stylesheet"></head><body><div id="content"></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Trending Cards</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#0b0e17;color:#fff;font-family:Arial,Helvetica,sans-serif}
+  #hdr{height:11vh;display:flex;align-items:center;justify-content:space-between;padding:0 3vw;background:#141a2b;border-bottom:.4vh solid #f5c518;box-sizing:border-box}
+  #hdr h1{margin:0;font-size:4.2vh;letter-spacing:.1em;text-transform:uppercase}
+  #hdr h1 span{color:#f5c518}
+  #meta{font-size:2.4vh;color:#9aa5c4;text-align:right}
+  #view{position:relative;height:89vh;overflow:hidden}
+  #fadeT,#fadeB{position:absolute;left:0;right:0;height:6vh;z-index:2;pointer-events:none}
+  #fadeT{top:0;background:linear-gradient(#0b0e17,transparent)}
+  #fadeB{bottom:0;background:linear-gradient(transparent,#0b0e17)}
+  #list{will-change:transform}
+  .row{height:30vh;box-sizing:border-box;display:flex;align-items:center;padding:0 3vw;border-bottom:1px solid #222a40}
+  .rank{width:9vh;font-size:6vh;font-weight:700;color:#f5c518;text-align:center}
+  .img{height:25vh;width:17.9vh;border-radius:1vh;background:#1b2238 center/cover no-repeat;box-shadow:0 0 2vh #000;flex:none}
+  .info{margin-left:4vh;flex:1;min-width:0}
+  .name{font-size:6vh;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .set{font-size:3.2vh;color:#9aa5c4;margin-top:.8vh}
+  .rar{font-size:2.8vh;color:#6f7aa0;margin-top:.6vh}
+  .pr{text-align:right;flex:none;padding-left:3vh}
+  .price{font-size:8vh;font-weight:700}
+  .chg{display:inline-block;margin-top:1vh;padding:.6vh 2vh;border-radius:5vh;font-size:3.4vh;font-weight:700}
+  .up{background:#12351f;color:#3ddc84}
+  .dn{background:#401519;color:#ff5c6c}
+</style>
+</head>
+<body>
+<div id="hdr">
+  <h1>Trending Today</h1>
+  <div id="meta"></div>
+</div>
+<div id="view"><div id="fadeT"></div><div id="fadeB"></div><div id="list"></div></div>
+
+<script>
+/* ============ SETTINGS ============ */
+// URL of a JSON file with the daily card list (see format below).
+// Leave "" to use the embedded SNAPSHOT only.
+// Must be hosted somewhere that allows cross-origin reads (CORS), e.g. your own web server / GitHub Pages / S3.
+var DATA_URL = "";
+var SCROLL_PX_PER_SEC = 60;   // scroll speed
+var RELOAD_HOUR = 3;          // page does a full reload daily at this local hour (0-23)
+var DATA_RECHECK_MIN = 60;    // re-check DATA_URL every N minutes
+var MAX_CARDS = 100;
+var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
+
+/* JSON format for DATA_URL: array of
+   {"id":716220,"name":"Articuno","set":"30th Celebration","rarity":"Illustration Rare","num":"132/128","price":9.22,"chg":-4.96,"pct":-34.98}
+   ("id" is the number in the Collectr image URL: product_<id>.jpg; or supply "img" with a full image URL) */
+
+/* Embedded snapshot (Collectr trending, Pokémon/One Piece/Riftbound) - fallback if DATA_URL is empty/unreachable.
+   Row: [id, name, set, rarity, num, price, chg, pct] */
+var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
+[713260,"Nidorina","Mega Evolution Promos","Promo","101",2.25,-1.04,-31.61],
+[716220,"Articuno",S,IR,"132/128",9.22,-4.96,-34.98],
+[696683,"Lapras",S,IR,"131/128",10.28,-3.51,-25.45],
+[712944,"Pikachu",S,"","040/128",3.24,-2.90,-47.23],
+[716221,"Zapdos",S,IR,"133/128",8.98,-2.53,-21.98],
+[716219,"Moltres",S,IR,"130/128",7.83,-5.66,-41.96],
+[696680,"Pikachu",S,"","036/128",1.93,-1.67,-46.39],
+[712935,"Pikachu",S,"","025/128",1.03,0.03,3.00],
+[712939,"Pikachu",S,"","032/128",1.93,-2.57,-57.11],
+[716228,"Maushold",S,IR,"146/128",13.17,-13.98,-51.49],
+[712943,"Pikachu",S,"","039/128",1.38,-1.59,-53.54],
+[712934,"Pikachu",S,"","023/128",1.53,-0.20,-11.56],
+[712941,"Pikachu",S,"","034/128",1.72,-1.09,-38.79],
+[712936,"Pikachu",S,"","026/128",1.17,-0.83,-41.50],
+[716311,"Pikachu",S,PR,"029/128",1.13,-1.46,-56.37],
+[712938,"Pikachu",S,"","030/128",1.41,0.26,22.61],
+[716227,"Gholdengo",S,IR,"142/128",2.17,-1.48,-40.55],
+[712947,"Pikachu",S,"","043/128",1.83,-0.58,-24.07],
+[716224,"Chandelure",S,IR,"137/128",3.98,-1.70,-29.93],
+[716225,"Scraggy",S,IR,"140/128",2.38,-0.75,-23.96],
+[716313,"Pikachu",S,PR,"035/128",2.04,-0.46,-18.40],
+[716310,"Pikachu",S,PR,"027/128",1.55,-1.49,-49.01],
+[714360,"Alolan Meowth",S,IR,"139/128",10.43,-2.57,-19.77],
+[712937,"Pikachu",S,"","028/128",1.19,-1.06,-47.11],
+[716218,"Alolan Exeggutor",S,IR,"129/128",3.22,-1.88,-36.86],
+[716226,"Galarian Meowth",S,IR,"141/128",10.16,-4.63,-31.30],
+[712942,"Pikachu",S,"","038/128",1.20,-0.60,-33.33],
+[716465,"Mew ex",S,"Double Rare","066/128",4.70,-2.53,-34.99],
+[716485,"Gengar ex",S,"","090/128",2.43,-2.58,-51.50],
+[712940,"Pikachu",S,"","033/128",1.21,-0.10,-7.63]
+].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7]}});
+
+/* ============ ENGINE ============ */
+var listEl=document.getElementById("list"),viewEl=document.getElementById("view"),metaEl=document.getElementById("meta");
+var y=0,half=0,last=0,raf=null,sig="";
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+function rowHtml(c,i){
+  var up=c.chg>=0,img=c.img||IMG.replace("{id}",c.id);
+  var sub=[c.rarity,c.num].filter(Boolean).join(" • ");
+  return '<div class="row"><div class="rank">'+(i+1)+'</div>'+
+    '<div class="img" style="background-image:url(\''+esc(img)+'\')"></div>'+
+    '<div class="info"><div class="name">'+esc(c.name)+'</div><div class="set">'+esc(c.set)+'</div><div class="rar">'+esc(sub)+'</div></div>'+
+    '<div class="pr"><div class="price">$'+Number(c.price).toFixed(2)+'</div>'+
+    '<div class="chg '+(up?"up":"dn")+'">'+(up?"▲ +":"▼ -")+'$'+Math.abs(c.chg).toFixed(2)+' ('+(up?"+":"")+Number(c.pct).toFixed(2)+'%)</div></div></div>';
+}
+
+function render(cards){
+  cards=cards.slice(0,MAX_CARDS);
+  var s=JSON.stringify(cards);
+  if(s===sig)return; sig=s;
+  var h=cards.map(rowHtml).join("");
+  listEl.innerHTML=h+h;               // duplicated for seamless loop
+  metaEl.innerHTML="Updated "+new Date().toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"});
+  y=0;
+  setTimeout(function(){half=listEl.scrollHeight/2},300);
+}
+
+function tick(t){
+  if(!last)last=t;
+  var dt=(t-last)/1000;last=t;
+  if(half>0){y+=SCROLL_PX_PER_SEC*dt;if(y>=half)y-=half;listEl.style.transform="translate3d(0,"+(-y)+"px,0)"}
+  raf=requestAnimationFrame(tick);
+}
+
+function load(){
+  if(!DATA_URL){render(RAW);return}
+  var u=DATA_URL+(DATA_URL.indexOf("?")>-1?"&":"?")+"t="+Date.now();
+  fetch(u,{cache:"no-store"}).then(function(r){return r.json()})
+    .then(function(d){render(Array.isArray(d)&&d.length?d:RAW)})
+    .catch(function(){if(!sig)render(RAW)});
+}
+
+function scheduleDailyReload(){
+  var n=new Date(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate(),RELOAD_HOUR,0,0);
+  if(t<=n)t.setDate(t.getDate()+1);
+  setTimeout(function(){location.reload()},t-n);
+}
+
+load();
+setInterval(load,DATA_RECHECK_MIN*60000);
+scheduleDailyReload();
+raf=requestAnimationFrame(tick);
+window.addEventListener("resize",function(){half=listEl.scrollHeight/2});
+</script>
+</body>
+</html>

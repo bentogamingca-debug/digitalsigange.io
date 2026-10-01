@@ -19,12 +19,11 @@
   .rank{width:9vh;font-size:6vh;font-weight:700;color:#f5c518;text-align:center}
   .img{height:25vh;width:17.9vh;border-radius:1vh;background:#1b2238 center/cover no-repeat;box-shadow:0 0 2vh #000;flex:none}
   .info{margin-left:4vh;flex:1;min-width:0}
-  .name{font-size:6vh;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .set{font-size:3.2vh;color:#9aa5c4;margin-top:.8vh}
-  .rar{font-size:2.8vh;color:#6f7aa0;margin-top:.6vh}
-  .pr{text-align:right;flex:none;padding-left:3vh}
-  .price{font-size:8vh;font-weight:700}
-  .chg{display:inline-block;margin-top:1vh;padding:.6vh 2vh;border-radius:5vh;font-size:3.4vh;font-weight:700}
+  .name{font-size:5vh;line-height:1.15;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .set{font-size:2.8vh;line-height:1.15;color:#9aa5c4;margin-top:.5vh}
+  .rar{font-size:2.4vh;line-height:1.15;color:#6f7aa0;margin-top:.4vh}
+    .price{font-size:7vh;line-height:1.1;font-weight:700;margin-top:1.2vh}
+  .chg{display:inline-block;margin-top:.8vh;padding:.5vh 1.8vh;border-radius:5vh;font-size:3vh;font-weight:700}
   .up{background:#12351f;color:#3ddc84}
   .dn{background:#401519;color:#ff5c6c}
 </style>
@@ -98,8 +97,8 @@ function rowHtml(c,i){
   var sub=[c.rarity,c.num].filter(Boolean).join(" • ");
   return '<div class="row"><div class="rank">'+(i+1)+'</div>'+
     '<div class="img" style="background-image:url(\''+esc(img)+'\')"></div>'+
-    '<div class="info"><div class="name">'+esc(c.name)+'</div><div class="set">'+esc(c.set)+'</div><div class="rar">'+esc(sub)+'</div></div>'+
-    '<div class="pr"><div class="price">$'+Number(c.price).toFixed(2)+'</div>'+
+    '<div class="info"><div class="name">'+esc(c.name)+'</div><div class="set">'+esc(c.set)+'</div><div class="rar">'+esc(sub)+'</div>'+
+    '<div class="price">$'+Number(c.price).toFixed(2)+'</div>'+
     '<div class="chg '+(up?"up":"dn")+'">'+(up?"▲ +":"▼ -")+'$'+Math.abs(c.chg).toFixed(2)+' ('+(up?"+":"")+Number(c.pct).toFixed(2)+'%)</div></div></div>';
 }
 

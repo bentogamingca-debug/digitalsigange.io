@@ -43,7 +43,13 @@ var DATA_URL = "";
 var SCROLL_PX_PER_SEC = 60;   // scroll speed
 var RELOAD_HOUR = 3;          // page does a full reload daily at this local hour (0-23)
 var DATA_RECHECK_MIN = 60;    // re-check DATA_URL every N minutes
-var MAX_CARDS = 100;
+var MAX_CARDS = 30;
+// USD -> CAD conversion. Rate is fetched on every refresh; CAD_FALLBACK is used if all rate lookups fail.
+var CAD_FALLBACK = 1.40;
+var RATE_URLS = [
+  {url:"https://api.frankfurter.dev/v1/latest?base=USD&symbols=CAD", get:function(d){return d.rates.CAD}},
+  {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
+];
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 
 /* JSON format for DATA_URL: array of
@@ -87,23 +93,23 @@ var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
 
 /* ============ ENGINE ============ */
 var listEl=document.getElementById("list"),viewEl=document.getElementById("view"),metaEl=document.getElementById("meta");
-var y=0,half=0,last=0,raf=null,sig="";
+var y=0,half=0,last=0,raf=null,sig="",rate=CAD_FALLBACK,cache=null;
 
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 
 function rowHtml(c,i){
-  var up=c.chg>=0,img=c.img||IMG.replace("{id}",c.id);
+  var up=c.chg>=0,p=c.price*rate,ch=Math.abs(c.chg)*rate,img=c.img||IMG.replace("{id}",c.id);
   var sub=[c.rarity,c.num].filter(Boolean).join(" • ");
   return '<div class="row">'+
     '<div class="img" style="background-image:url(\''+esc(img)+'\')"></div>'+
     '<div class="info"><div class="name">'+esc(c.name)+'</div><div class="set">'+esc(c.set)+'</div><div class="rar">'+esc(sub)+'</div>'+
-    '<div class="price">$'+Number(c.price).toFixed(2)+'</div>'+
-    '<div class="chg '+(up?"up":"dn")+'">'+(up?"▲ +":"▼ -")+'$'+Math.abs(c.chg).toFixed(2)+' ('+(up?"+":"")+Number(c.pct).toFixed(2)+'%)</div></div></div>';
+    '<div class="price">C$'+p.toFixed(2)+'</div>'+
+    '<div class="chg '+(up?"up":"dn")+'">'+(up?"▲ +":"▼ -")+'C$'+ch.toFixed(2)+' ('+(up?"+":"")+Number(c.pct).toFixed(2)+'%)</div></div></div>';
 }
 
 function render(cards){
   cards=cards.slice(0,MAX_CARDS);
-  var s=JSON.stringify(cards);
+  cache=cards;var s=JSON.stringify(cards)+rate;
   if(s===sig)return; sig=s;
   var h=cards.map(rowHtml).join("");
   listEl.innerHTML=h+h;               // duplicated for seamless loop
@@ -119,13 +125,28 @@ function tick(t){
   raf=requestAnimationFrame(tick);
 }
 
-function load(){
-  if(!DATA_URL){render(RAW);return}
-  var u=DATA_URL+(DATA_URL.indexOf("?")>-1?"&":"?")+"t="+Date.now();
-  fetch(u,{cache:"no-store"}).then(function(r){return r.json()})
-    .then(function(d){render(Array.isArray(d)&&d.length?d:RAW)})
-    .catch(function(){if(!sig)render(RAW)});
+function getRate(){
+  var i=0;
+  function next(){
+    if(i>=RATE_URLS.length)return Promise.resolve();
+    var r=RATE_URLS[i++];
+    return fetch(r.url,{cache:"no-store"}).then(function(x){return x.json()}).then(function(d){
+      var v=Number(r.get(d));if(!(v>0.5&&v<5))throw 0;rate=v;
+    }).catch(next);
+  }
+  return next();
 }
+
+function getCards(){
+  if(!DATA_URL)return Promise.resolve(cache||RAW);
+  var u=DATA_URL+(DATA_URL.indexOf("?")>-1?"&":"?")+"t="+Date.now();
+  return fetch(u,{cache:"no-store"}).then(function(r){return r.json()})
+    .then(function(d){return Array.isArray(d)&&d.length?d:(cache||RAW)})
+    .catch(function(){return cache||RAW});
+}
+
+// Runs at start and then every DATA_RECHECK_MIN minutes: refresh exchange rate + card data, re-render if anything changed.
+function load(){getRate().then(getCards).then(render).catch(function(){render(cache||RAW)})}
 
 function scheduleDailyReload(){
   var n=new Date(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate(),RELOAD_HOUR,0,0);

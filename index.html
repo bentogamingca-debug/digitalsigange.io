@@ -40,6 +40,15 @@
 // Leave "" to use the embedded SNAPSHOT only.
 // Must be hosted somewhere that allows cross-origin reads (CORS), e.g. your own web server / GitHub Pages / S3.
 var DATA_URL = "https://raw.githubusercontent.com/bentogamingca-debug/digitalsigange.io/refs/heads/main/cards.json";
+// Live pull from Collectr on every page load / refresh (and every DATA_RECHECK_MIN minutes).
+// Browsers can't read Collectr directly (cross-origin block), so the request goes through a public CORS proxy.
+// If every proxy fails, the page falls back to DATA_URL (cards.json), then to the built-in snapshot.
+var USE_COLLECTR = true;
+var COLLECTR_URL = "https://app.getcollectr.com/?sortType=trendingToday&sortOrder=DESC&category=89,68,3&cardType=cards";
+var PROXIES = [
+  function(u){return "https://corsproxy.io/?url="+encodeURIComponent(u)},
+  function(u){return "https://api.allorigins.win/raw?url="+encodeURIComponent(u)}
+];
 var SCROLL_PX_PER_SEC = 60;   // scroll speed
 var RELOAD_HOUR = 3;          // page does a full reload daily at this local hour (0-23)
 var DATA_RECHECK_MIN = 60;    // re-check DATA_URL every N minutes
@@ -137,12 +146,53 @@ function getRate(){
   return next();
 }
 
-function getCards(){
+function getJson(){
   if(!DATA_URL)return Promise.resolve(cache||RAW);
   var u=DATA_URL+(DATA_URL.indexOf("?")>-1?"&":"?")+"t="+Date.now();
   return fetch(u,{cache:"no-store"}).then(function(r){return r.json()})
     .then(function(d){return Array.isArray(d)&&d.length?d:(cache||RAW)})
     .catch(function(){return cache||RAW});
+}
+
+function parseCollectr(html){
+  var doc=new DOMParser().parseFromString(html,"text/html"),out=[],seen={};
+  var imgs=doc.querySelectorAll('img[src*="product_"]');
+  for(var i=0;i<imgs.length;i++){
+    var m=imgs[i].getAttribute("src").match(/product_(\d+)/);
+    if(!m||seen[m[1]])continue;
+    var li=imgs[i].closest("li")||imgs[i].parentNode.parentNode,tx=[],n;
+    var w=doc.createTreeWalker(li,NodeFilter.SHOW_TEXT,null);
+    while((n=w.nextNode())){var t=n.nodeValue.replace(/\s+/g," ").trim();if(t)tx.push(t)}
+    var j=tx.join(" "),pm=j.match(/\$([\d,]+\.\d{2})/),cm=j.match(/([+-])\s*\$([\d,]+\.\d{2})\s*\(\s*([+-]?[\d.]+)%/);
+    if(!pm||tx.length<3)continue;
+    var line="";for(var k=0;k<tx.length;k++){if(tx[k].indexOf("\u2022")>-1){line=tx[k];break}}
+    var parts=line.split("\u2022"),rar=(parts[0]||"").trim(),rest=(parts[1]||"").trim();
+    var nm=rest.match(/^(\d+(?:\/\d+)?)/),num=nm?nm[1]:rest.replace(/(Reverse )?(Holofoil|Normal)$/i,"").trim();
+    if(/^none$/i.test(rar))rar="";
+    var sg=cm&&cm[1]==="-"?-1:1;
+    seen[m[1]]=1;
+    out.push({id:+m[1],name:tx[0].replace(/\s+-\s+\S+\s*\(.*\)\s*$/,""),set:tx[1],rarity:rar,num:num,
+      price:parseFloat(pm[1].replace(/,/g,"")),
+      chg:cm?sg*parseFloat(cm[2].replace(/,/g,"")):0,
+      pct:cm?sg*Math.abs(parseFloat(cm[3])):0});
+  }
+  return out;
+}
+
+function getCollectr(){
+  var i=0;
+  function next(){
+    if(i>=PROXIES.length)return Promise.reject();
+    var u=PROXIES[i++](COLLECTR_URL);
+    return fetch(u,{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.text()})
+      .then(function(h){var l=parseCollectr(h);if(l.length<10)throw 0;return l})
+      .catch(next);
+  }
+  return next();
+}
+
+function getCards(){
+  return (USE_COLLECTR?getCollectr():Promise.reject()).catch(getJson);
 }
 
 // Runs at start and then every DATA_RECHECK_MIN minutes: refresh exchange rate + card data, re-render if anything changed.

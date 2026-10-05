@@ -44,6 +44,8 @@ var DATA_URL = "https://raw.githubusercontent.com/bentogamingca-debug/digitalsig
 // Browsers can't read Collectr directly (cross-origin block), so the request goes through a public CORS proxy.
 // If every proxy fails, the page falls back to DATA_URL (cards.json), then to the built-in snapshot.
 var USE_COLLECTR = true;
+var FETCH_TIMEOUT_MS = 8000;   // give up on a slow proxy/API after this long
+var BACKUP_DATE = "Oct 5, 2026"; // date of the built-in snapshot / cards.json (shown when live data isn't available)
 var COLLECTR_URL = "https://app.getcollectr.com/?sortType=trendingToday&sortOrder=DESC&category=89,68,3&cardType=cards";
 var PROXIES = [
   function(u){return "https://corsproxy.io/?url="+encodeURIComponent(u)},
@@ -65,7 +67,7 @@ var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jp
    {"id":716220,"name":"Articuno","set":"30th Celebration","rarity":"Illustration Rare","num":"132/128","price":9.22,"chg":-4.96,"pct":-34.98}
    ("id" is the number in the Collectr image URL: product_<id>.jpg; or supply "img" with a full image URL) */
 
-/* Embedded snapshot (Collectr trending, Oct 4 2026; Pokémon/One Piece/Riftbound) - fallback if DATA_URL is empty/unreachable.
+/* Embedded snapshot (Collectr trending, Oct 5 2026; Pokémon/One Piece/Riftbound) - fallback if DATA_URL is empty/unreachable.
    Row: [id, name, set, rarity, num, price, chg, pct] */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
 [716220,"Articuno",S,IR,"132/128",8.17,-5.41,-39.84],
@@ -102,7 +104,7 @@ var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
 
 /* ============ ENGINE ============ */
 var listEl=document.getElementById("list"),viewEl=document.getElementById("view"),metaEl=document.getElementById("meta");
-var y=0,half=0,last=0,raf=null,sig="",rate=CAD_FALLBACK,cache=null;
+var y=0,half=0,last=0,raf=null,sig="",rate=CAD_FALLBACK,cache=null,src="backup",stamp=null;
 
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 
@@ -116,13 +118,21 @@ function rowHtml(c,i){
     '<div class="chg '+(up?"up":"dn")+'">'+(up?"▲ +":"▼ -")+'C$'+ch.toFixed(2)+' ('+(up?"+":"")+Number(c.pct).toFixed(2)+'%)</div></div></div>';
 }
 
+function fetchT(u){
+  return Promise.race([fetch(u,{cache:"no-store"}),new Promise(function(_,rej){setTimeout(function(){rej(0)},FETCH_TIMEOUT_MS)})]);
+}
+
+function updMeta(){
+  var t=src==="live"&&stamp?stamp.toLocaleString(undefined,{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}):BACKUP_DATE+(src==="json"?" (backup: GitHub cards.json)":" (backup: built-in list)");
+  metaEl.textContent="Last updated: "+t;
+}
+
 function render(cards){
   cards=cards.slice(0,MAX_CARDS);
   cache=cards;var s=JSON.stringify(cards)+rate;
   if(s===sig)return; sig=s;
   var h=cards.map(rowHtml).join("");
   listEl.innerHTML=h+h;               // duplicated for seamless loop
-  metaEl.innerHTML="Updated "+new Date().toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"});
   y=0;
   setTimeout(function(){half=listEl.scrollWidth/2},300);
 }
@@ -139,7 +149,7 @@ function getRate(){
   function next(){
     if(i>=RATE_URLS.length)return Promise.resolve();
     var r=RATE_URLS[i++];
-    return fetch(r.url,{cache:"no-store"}).then(function(x){return x.json()}).then(function(d){
+    return fetchT(r.url).then(function(x){return x.json()}).then(function(d){
       var v=Number(r.get(d));if(!(v>0.5&&v<5))throw 0;rate=v;
     }).catch(next);
   }
@@ -147,11 +157,11 @@ function getRate(){
 }
 
 function getJson(){
-  if(!DATA_URL)return Promise.resolve(cache||RAW);
+  if(!DATA_URL){src="snapshot";return Promise.resolve(cache||RAW)}
   var u=DATA_URL+(DATA_URL.indexOf("?")>-1?"&":"?")+"t="+Date.now();
-  return fetch(u,{cache:"no-store"}).then(function(r){return r.json()})
-    .then(function(d){return Array.isArray(d)&&d.length?d:(cache||RAW)})
-    .catch(function(){return cache||RAW});
+  return fetchT(u).then(function(r){return r.json()})
+    .then(function(d){if(Array.isArray(d)&&d.length){src="json";return d}src="snapshot";return cache||RAW})
+    .catch(function(){src="snapshot";return cache||RAW});
 }
 
 function parseCollectr(html){
@@ -180,23 +190,28 @@ function parseCollectr(html){
 }
 
 function getCollectr(){
-  var i=0;
-  function next(){
-    if(i>=PROXIES.length)return Promise.reject();
-    var u=PROXIES[i++](COLLECTR_URL);
-    return fetch(u,{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.text()})
-      .then(function(h){var l=parseCollectr(h);if(l.length<10)throw 0;return l})
-      .catch(next);
-  }
-  return next();
+  return new Promise(function(res,rej){
+    var fails=0,done=false;
+    PROXIES.forEach(function(px){
+      fetchT(px(COLLECTR_URL)).then(function(r){if(!r.ok)throw 0;return r.text()})
+        .then(function(h){var l=parseCollectr(h);if(l.length<10)throw 0;return l})
+        .then(function(l){if(!done){done=true;res(l)}})
+        .catch(function(){if(++fails===PROXIES.length&&!done)rej()});
+    });
+  });
 }
 
 function getCards(){
-  return (USE_COLLECTR?getCollectr():Promise.reject()).catch(getJson);
+  return (USE_COLLECTR?getCollectr().then(function(l){src="live";stamp=new Date();return l}):Promise.reject())
+    .catch(function(){return src==="live"&&cache?cache:getJson()});
 }
 
-// Runs at start and then every DATA_RECHECK_MIN minutes: refresh exchange rate + card data, re-render if anything changed.
-function load(){getRate().then(getCards).then(render).catch(function(){render(cache||RAW)})}
+// The page draws immediately from the built-in snapshot, then swaps in fresh data as soon as it arrives.
+// Exchange rate and card data load in parallel. Runs at start and every DATA_RECHECK_MIN minutes.
+function load(){
+  getRate().then(function(){render(cache||RAW)});
+  getCards().then(function(l){render(l);updMeta()}).catch(function(){updMeta()});
+}
 
 function scheduleDailyReload(){
   var n=new Date(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate(),RELOAD_HOUR,0,0);
@@ -204,6 +219,7 @@ function scheduleDailyReload(){
   setTimeout(function(){location.reload()},t-n);
 }
 
+render(RAW);updMeta();
 load();
 setInterval(load,DATA_RECHECK_MIN*60000);
 scheduleDailyReload();

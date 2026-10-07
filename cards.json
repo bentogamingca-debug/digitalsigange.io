@@ -5,17 +5,17 @@
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 6.58,
+    "price": 6.43,
     "chg": 0,
     "pct": 0
   },
   {
-    "id": 716220,
-    "name": "Articuno",
+    "id": 696835,
+    "name": "Umbreon ex",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 6.75,
+    "price": 0.9,
     "chg": 0,
     "pct": 0
   },
@@ -25,17 +25,7 @@
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 5.65,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 716219,
-    "name": "Moltres",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 5.6,
+    "price": 6.26,
     "chg": 0,
     "pct": 0
   },
@@ -45,97 +35,17 @@
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 11.71,
+    "price": 11.63,
     "chg": 0,
     "pct": 0
   },
   {
-    "id": 716224,
-    "name": "Chandelure",
+    "id": 716220,
+    "name": "Articuno",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 2.22,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 714360,
-    "name": "Alolan Meowth",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 6.58,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 712944,
-    "name": "Pikachu",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 2.51,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 716226,
-    "name": "Galarian Meowth",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 7.21,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 716218,
-    "name": "Alolan Exeggutor",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 2.4,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 714358,
-    "name": "Meowth",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 9.94,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 696685,
-    "name": "Lycanroc",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 1.53,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 716223,
-    "name": "Morpeko",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 4.95,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 716225,
-    "name": "Scraggy",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 1.42,
+    "price": 6.61,
     "chg": 0,
     "pct": 0
   },
@@ -145,7 +55,47 @@
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 1.31,
+    "price": 1.33,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 696685,
+    "name": "Lycanroc",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 1.54,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 716219,
+    "name": "Moltres",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 6.08,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 714360,
+    "name": "Alolan Meowth",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 7.8,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 716495,
+    "name": "Jirachi ex",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 0.51,
     "chg": 0,
     "pct": 0
   },
@@ -155,27 +105,7 @@
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 1.34,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 696686,
-    "name": "Hisuian Zorua",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 5.1,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 712939,
-    "name": "Pikachu",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 1.09,
+    "price": 1.58,
     "chg": 0,
     "pct": 0
   },
@@ -185,57 +115,77 @@
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 1.69,
+    "price": 1.45,
     "chg": 0,
     "pct": 0
   },
   {
-    "id": 696684,
-    "name": "Drifloon",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 3.55,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 716465,
-    "name": "Mew ex",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 3.08,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 712935,
+    "id": 712950,
     "name": "Pikachu",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 0.47,
+    "price": 0.79,
     "chg": 0,
     "pct": 0
   },
   {
-    "id": 712952,
-    "name": "Pikachu ex",
+    "id": 696687,
+    "name": "Mewtwo ex",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 1.08,
+    "price": 41.2,
     "chg": 0,
     "pct": 0
   },
   {
-    "id": 712947,
+    "id": 712944,
     "name": "Pikachu",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 1.04,
+    "price": 2.25,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 713260,
+    "name": "Nidorina",
+    "set": "Mega Evolution Promos",
+    "rarity": "",
+    "num": "",
+    "price": 1.85,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 712939,
+    "name": "Pikachu",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 1.03,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 696834,
+    "name": "Espeon ex",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 0.69,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 716502,
+    "name": "Salamence ex",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 0.44,
     "chg": 0,
     "pct": 0
   },
@@ -245,37 +195,7 @@
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 0.97,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 712941,
-    "name": "Pikachu",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 1.06,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 716222,
-    "name": "Toxtricity",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 2.33,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 716311,
-    "name": "Pikachu",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 0.84,
+    "price": 1.01,
     "chg": 0,
     "pct": 0
   },
@@ -285,7 +205,67 @@
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 0.78,
+    "price": 0.79,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 716230,
+    "name": "Greninja ex",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 21.81,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 716222,
+    "name": "Toxtricity",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 2.42,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 712952,
+    "name": "Pikachu ex",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 1.02,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 712949,
+    "name": "Pikachu",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 0.64,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 716226,
+    "name": "Galarian Meowth",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 7.67,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 716232,
+    "name": "Jirachi ex",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 48.44,
     "chg": 0,
     "pct": 0
   },
@@ -295,7 +275,27 @@
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 0.9,
+    "price": 0.91,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 696682,
+    "name": "Pikachu",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 0.56,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 716448,
+    "name": "Fuecoco ex",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 0.36,
     "chg": 0,
     "pct": 0
   }

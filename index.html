@@ -55,41 +55,41 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Oct 6 2026) - shown instantly on load and kept if the live pull fails.
+/* Built-in backup list (Collectr trending, Oct 7 2026) - shown instantly on load and kept if the live pull fails.
    Row: [id, name, set, rarity, num, price USD, change USD, change %] */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[696683,"Lapras",S,IR,"131/128",6.58,-5.94,-47.44],
-[716220,"Articuno",S,IR,"132/128",6.75,-6.18,-47.80],
-[716221,"Zapdos",S,IR,"133/128",5.65,-5.40,-48.87],
-[716219,"Moltres",S,IR,"130/128",5.60,-4.72,-45.74],
-[714360,"Alolan Meowth",S,IR,"139/128",6.58,-4.82,-42.28],
-[716228,"Maushold",S,IR,"146/128",11.71,-5.71,-32.78],
-[716224,"Chandelure",S,IR,"137/128",2.22,-3.08,-58.11],
-[716226,"Galarian Meowth",S,IR,"141/128",7.21,-4.75,-39.72],
-[712944,"Pikachu",S,"","040/128",2.51,-1.53,-37.87],
-[716218,"Alolan Exeggutor",S,IR,"129/128",2.40,-1.63,-40.45],
-[716227,"Gholdengo",S,IR,"142/128",1.34,-1.36,-50.37],
-[714358,"Meowth",S,IR,"144/128",9.94,-6.31,-38.83],
-[717621,"Kommo-o",S,IR,"143/128",1.31,-1.36,-50.94],
-[716225,"Scraggy",S,IR,"140/128",1.42,-1.24,-46.62],
-[696685,"Lycanroc",S,IR,"138/128",1.53,-0.55,-26.44],
-[716223,"Morpeko",S,IR,"135/128",4.95,-3.89,-44.00],
-[696686,"Hisuian Zorua",S,IR,"145/128",5.10,-4.87,-48.85],
-[712939,"Pikachu",S,"","032/128",1.09,-1.33,-54.96],
-[696680,"Pikachu",S,"","036/128",0.97,-1.73,-64.07],
-[716485,"Gengar ex",S,"","090/128",1.69,-1.55,-47.84],
-[712935,"Pikachu",S,"","025/128",0.47,-0.52,-52.53],
-[712952,"Pikachu ex",S,"Double Rare","054/128",1.08,-0.81,-42.86],
-[712947,"Pikachu",S,"","043/128",1.04,-0.96,-48.00],
-[696684,"Drifloon",S,IR,"136/128",3.55,-3.11,-46.70],
-[712941,"Pikachu",S,"","034/128",1.06,-1.28,-54.70],
-[716465,"Mew ex",S,"Double Rare","066/128",3.08,-1.44,-31.86],
-[716311,"Pikachu",S,PR,"029/128",0.84,-0.52,-38.24],
-[716222,"Toxtricity",S,IR,"134/128",2.33,-2.18,-48.34],
-[716309,"Pikachu",S,PR,"024/128",0.67,-0.42,-38.53],
-[712937,"Pikachu",S,"","028/128",0.90,-1.40,-60.87]
+[716220,"Articuno",S,IR,"132/128",6.61,-3.91,-37.17],
+[716219,"Moltres",S,IR,"130/128",6.08,-3.21,-34.55],
+[716221,"Zapdos",S,IR,"133/128",6.26,-2.58,-29.19],
+[696683,"Lapras",S,IR,"131/128",6.43,-5.13,-44.38],
+[716224,"Chandelure",S,IR,"137/128",2.52,-1.72,-40.57],
+[714360,"Alolan Meowth",S,IR,"139/128",7.80,-2.94,-27.37],
+[716228,"Maushold",S,IR,"146/128",11.63,-4.98,-29.98],
+[712944,"Pikachu",S,"","040/128",2.25,-0.59,-20.77],
+[716226,"Galarian Meowth",S,IR,"141/128",7.67,-3.17,-29.24],
+[716225,"Scraggy",S,IR,"140/128",1.46,-1.01,-40.89],
+[716218,"Alolan Exeggutor",S,IR,"129/128",2.03,-1.46,-41.83],
+[714358,"Meowth",S,IR,"144/128",10.24,-4.76,-31.73],
+[696685,"Lycanroc",S,IR,"138/128",1.54,-0.35,-18.52],
+[716223,"Morpeko",S,IR,"135/128",5.48,-3.02,-35.53],
+[717621,"Kommo-o",S,IR,"143/128",1.33,-0.87,-39.55],
+[716227,"Gholdengo",S,IR,"142/128",1.58,-0.59,-27.19],
+[696686,"Hisuian Zorua",S,IR,"145/128",5.37,-3.18,-37.19],
+[696684,"Drifloon",S,IR,"136/128",3.93,-2.68,-40.54],
+[716465,"Mew ex",S,"Double Rare","066/128",2.93,-2.35,-44.51],
+[712939,"Pikachu",S,"","032/128",1.03,-1.19,-53.60],
+[712935,"Pikachu",S,"","025/128",0.58,-0.53,-47.75],
+[716485,"Gengar ex",S,"","090/128",1.45,-1.53,-51.34],
+[712952,"Pikachu ex",S,"Double Rare","054/128",1.02,-0.61,-37.42],
+[716222,"Toxtricity",S,IR,"134/128",2.42,-2.23,-47.96],
+[717605,"Mew ex",S,"Special Illustration Rare","152/128",91.75,-60.05,-39.56],
+[696680,"Pikachu",S,"","036/128",1.01,-1.40,-58.09],
+[712941,"Pikachu",S,"","034/128",1.12,-0.97,-46.41],
+[696688,"Mew ex",S,"Futuristic Rare","158/128",60.80,-31.87,-34.39],
+[712937,"Pikachu",S,"","028/128",0.91,-0.38,-29.46],
+[712947,"Pikachu",S,"","043/128",0.95,-0.61,-39.10]
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7]}});
-var BACKUP_DATE = "Oct 6, 2026";   // date of the backup list above (shown when live data isn't available)
+var BACKUP_DATE = "Oct 7, 2026";   // date of the backup list above (shown when live data isn't available)
 
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 

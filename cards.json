@@ -10,22 +10,22 @@
     "pct": 0
   },
   {
-    "id": 716221,
-    "name": "Zapdos",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 6.26,
-    "chg": 0,
-    "pct": 0
-  },
-  {
     "id": 716219,
     "name": "Moltres",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
     "price": 6.08,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 716221,
+    "name": "Zapdos",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 6.26,
     "chg": 0,
     "pct": 0
   },
@@ -110,16 +110,6 @@
     "pct": 0
   },
   {
-    "id": 696685,
-    "name": "Lycanroc",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 1.54,
-    "chg": 0,
-    "pct": 0
-  },
-  {
     "id": 716218,
     "name": "Alolan Exeggutor",
     "set": "30th Celebration",
@@ -130,12 +120,12 @@
     "pct": 0
   },
   {
-    "id": 717621,
-    "name": "Kommo-o",
+    "id": 696685,
+    "name": "Lycanroc",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 1.33,
+    "price": 1.54,
     "chg": 0,
     "pct": 0
   },
@@ -146,6 +136,16 @@
     "rarity": "",
     "num": "",
     "price": 5.48,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 717621,
+    "name": "Kommo-o",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 1.33,
     "chg": 0,
     "pct": 0
   },
@@ -220,22 +220,22 @@
     "pct": 0
   },
   {
-    "id": 696680,
-    "name": "Pikachu",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 1.01,
-    "chg": 0,
-    "pct": 0
-  },
-  {
     "id": 712952,
     "name": "Pikachu ex",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
     "price": 1.02,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 696680,
+    "name": "Pikachu",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 1.01,
     "chg": 0,
     "pct": 0
   },
@@ -260,12 +260,22 @@
     "pct": 0
   },
   {
-    "id": 717605,
-    "name": "Mew ex",
+    "id": 712937,
+    "name": "Pikachu",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 91.75,
+    "price": 0.91,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 712934,
+    "name": "Pikachu",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 0.77,
     "chg": 0,
     "pct": 0
   },
@@ -280,22 +290,12 @@
     "pct": 0
   },
   {
-    "id": 712947,
-    "name": "Pikachu",
+    "id": 717605,
+    "name": "Mew ex",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 0.95,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 712934,
-    "name": "Pikachu",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 0.77,
+    "price": 91.75,
     "chg": 0,
     "pct": 0
   }

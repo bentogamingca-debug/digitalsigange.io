@@ -10,16 +10,6 @@
     "pct": 0
   },
   {
-    "id": 696683,
-    "name": "Lapras",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 5.53,
-    "chg": 0,
-    "pct": 0
-  },
-  {
     "id": 716220,
     "name": "Articuno",
     "set": "30th Celebration",
@@ -30,12 +20,32 @@
     "pct": 0
   },
   {
+    "id": 696683,
+    "name": "Lapras",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 5.53,
+    "chg": 0,
+    "pct": 0
+  },
+  {
     "id": 716219,
     "name": "Moltres",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
     "price": 5.77,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 716228,
+    "name": "Maushold",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 11.96,
     "chg": 0,
     "pct": 0
   },
@@ -66,16 +76,6 @@
     "rarity": "",
     "num": "",
     "price": 7.15,
-    "chg": 0,
-    "pct": 0
-  },
-  {
-    "id": 716228,
-    "name": "Maushold",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 11.96,
     "chg": 0,
     "pct": 0
   },
@@ -200,22 +200,22 @@
     "pct": 0
   },
   {
-    "id": 712939,
-    "name": "Pikachu",
-    "set": "30th Celebration",
-    "rarity": "",
-    "num": "",
-    "price": 1.02,
-    "chg": 0,
-    "pct": 0
-  },
-  {
     "id": 712935,
     "name": "Pikachu",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
     "price": 0.53,
+    "chg": 0,
+    "pct": 0
+  },
+  {
+    "id": 712939,
+    "name": "Pikachu",
+    "set": "30th Celebration",
+    "rarity": "",
+    "num": "",
+    "price": 1.02,
     "chg": 0,
     "pct": 0
   },
@@ -250,12 +250,12 @@
     "pct": 0
   },
   {
-    "id": 712937,
+    "id": 712946,
     "name": "Pikachu",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 0.87,
+    "price": 0.83,
     "chg": 0,
     "pct": 0
   },
@@ -280,22 +280,22 @@
     "pct": 0
   },
   {
-    "id": 712946,
+    "id": 712937,
     "name": "Pikachu",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 0.83,
+    "price": 0.87,
     "chg": 0,
     "pct": 0
   },
   {
-    "id": 712934,
+    "id": 712941,
     "name": "Pikachu",
     "set": "30th Celebration",
     "rarity": "",
     "num": "",
-    "price": 0.79,
+    "price": 1.18,
     "chg": 0,
     "pct": 0
   }

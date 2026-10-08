@@ -35,7 +35,7 @@
 /* ============ SETTINGS ============ */
 // Your own Cloudflare Worker address (see worker.js). Tried first when set; public relays are the backup.
 var WORKER_URL = "";
-var COLLECTR_URL = "https://app.getcollectr.com/?sortType=trendingToday&sortOrder=DESC&cardType=cards&category=3,68,89";
+var COLLECTR_URL = "https://app.getcollectr.com/?sortType=trendingToday&sortOrder=DESC&category=89,68,3&cardType=cards";
 var PROXIES = [
   function(u){return "https://corsproxy.io/?url="+encodeURIComponent(u)},
   function(u){return "https://api.allorigins.win/raw?url="+encodeURIComponent(u)}
@@ -55,41 +55,41 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Oct 7 2026) - shown instantly on load and kept if the live pull fails.
-   Row: [id, name, set, rarity, num, price USD, change USD, change %] */
+/* Built-in backup list (Collectr trending, Oct 8 2026) - shown instantly on load and kept if the live pull fails.
+   Row: [id, name, set, rarity, num, price USD, change USD, change % (optional 9th value 1 = price already in CAD)] */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[716220,"Articuno",S,IR,"132/128",6.61,-3.91,-37.17],
-[716219,"Moltres",S,IR,"130/128",6.08,-3.21,-34.55],
-[716221,"Zapdos",S,IR,"133/128",6.26,-2.58,-29.19],
-[696683,"Lapras",S,IR,"131/128",6.43,-5.13,-44.38],
-[716224,"Chandelure",S,IR,"137/128",2.52,-1.72,-40.57],
-[714360,"Alolan Meowth",S,IR,"139/128",7.80,-2.94,-27.37],
-[716228,"Maushold",S,IR,"146/128",11.63,-4.98,-29.98],
-[712944,"Pikachu",S,"","040/128",2.25,-0.59,-20.77],
-[716226,"Galarian Meowth",S,IR,"141/128",7.67,-3.17,-29.24],
-[716225,"Scraggy",S,IR,"140/128",1.46,-1.01,-40.89],
-[716218,"Alolan Exeggutor",S,IR,"129/128",2.03,-1.46,-41.83],
-[714358,"Meowth",S,IR,"144/128",10.24,-4.76,-31.73],
-[696685,"Lycanroc",S,IR,"138/128",1.54,-0.35,-18.52],
-[716223,"Morpeko",S,IR,"135/128",5.48,-3.02,-35.53],
-[717621,"Kommo-o",S,IR,"143/128",1.33,-0.87,-39.55],
-[716227,"Gholdengo",S,IR,"142/128",1.58,-0.59,-27.19],
-[696686,"Hisuian Zorua",S,IR,"145/128",5.37,-3.18,-37.19],
-[696684,"Drifloon",S,IR,"136/128",3.93,-2.68,-40.54],
-[716465,"Mew ex",S,"Double Rare","066/128",2.93,-2.35,-44.51],
-[712939,"Pikachu",S,"","032/128",1.03,-1.19,-53.60],
-[712935,"Pikachu",S,"","025/128",0.58,-0.53,-47.75],
-[716485,"Gengar ex",S,"","090/128",1.45,-1.53,-51.34],
-[712952,"Pikachu ex",S,"Double Rare","054/128",1.02,-0.61,-37.42],
-[716222,"Toxtricity",S,IR,"134/128",2.42,-2.23,-47.96],
-[717605,"Mew ex",S,"Special Illustration Rare","152/128",91.75,-60.05,-39.56],
-[696680,"Pikachu",S,"","036/128",1.01,-1.40,-58.09],
-[712941,"Pikachu",S,"","034/128",1.12,-0.97,-46.41],
-[696688,"Mew ex",S,"Futuristic Rare","158/128",60.80,-31.87,-34.39],
-[712937,"Pikachu",S,"","028/128",0.91,-0.38,-29.46],
-[712947,"Pikachu",S,"","043/128",0.95,-0.61,-39.10]
-].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7]}});
-var BACKUP_DATE = "Oct 7, 2026";   // date of the backup list above (shown when live data isn't available)
+[716221,"Zapdos",S,IR,"133/128",6.62,-2.36,-26.28],
+[696683,"Lapras",S,IR,"131/128",5.53,-4.75,-46.21],
+[716220,"Articuno",S,IR,"132/128",6.83,-2.39,-25.92],
+[716219,"Moltres",S,IR,"130/128",5.77,-2.06,-26.31],
+[716218,"Alolan Exeggutor",S,IR,"129/128",2.18,-1.04,-32.30],
+[716224,"Chandelure",S,IR,"137/128",2.39,-1.59,-39.95],
+[716226,"Galarian Meowth",S,IR,"141/128",7.15,-3.01,-29.63],
+[716228,"Maushold",S,IR,"146/128",11.96,-1.21,-9.19],
+[714360,"Alolan Meowth",S,IR,"139/128",7.45,-2.98,-28.57],
+[714358,"Meowth",S,IR,"144/128",10.50,-3.65,-25.80],
+[716225,"Scraggy",S,IR,"140/128",1.47,-0.91,-38.24],
+[696685,"Lycanroc",S,IR,"138/128",1.69,-0.18,-9.63],
+[717621,"Kommo-o",S,IR,"143/128",1.55,-0.59,-27.57],
+[716227,"Gholdengo",S,IR,"142/128",1.52,-0.65,-29.95],
+[712944,"Pikachu",S,"","040/128",2.02,-1.22,-37.65],
+[716223,"Morpeko",S,IR,"135/128",4.42,-3.37,-43.26],
+[696686,"Hisuian Zorua",S,IR,"145/128",4.90,-2.94,-37.50],
+[696680,"Pikachu",S,"","036/128",1.16,-0.77,-39.90],
+[716222,"Toxtricity",S,IR,"134/128",2.57,-1.30,-33.59],
+[696684,"Drifloon",S,IR,"136/128",3.50,-1.52,-30.28],
+[712939,"Pikachu",S,"","032/128",1.02,-0.91,-47.15],
+[712935,"Pikachu",S,"","025/128",0.53,-0.50,-48.54],
+[712952,"Pikachu ex",S,"Double Rare","054/128",1.14,-0.27,-19.15],
+[716465,"Mew ex",S,"Double Rare","066/128",2.94,-1.76,-37.45],
+[716485,"Gengar ex",S,"","090/128",1.33,-1.10,-45.27],
+[712937,"Pikachu",S,"","028/128",0.87,-0.32,-26.89],
+[717605,"Mew ex",S,"Special Illustration Rare","152/128",90.54,-54.79,-37.70],
+[712943,"Pikachu",S,"","039/128",0.72,-0.66,-47.83],
+[712946,"Pikachu",S,"","042/128",0.83,-0.34,-29.06],
+[712934,"Pikachu",S,"","023/128",0.79,-0.74,-48.37]
+].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
+var BACKUP_DATE = "Oct 8, 2026";   // date of the backup list above (shown when live data isn't available)
 
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 
@@ -104,7 +104,7 @@ function fetchT(u){
 }
 
 function rowHtml(c){
-  var up=c.chg>=0,p=c.price*rate,ch=Math.abs(c.chg)*rate,img=c.img||IMG.replace("{id}",c.id);
+  var up=c.chg>=0,k=c.cad?1:rate,p=c.price*k,ch=Math.abs(c.chg)*k,img=c.img||IMG.replace("{id}",c.id);
   var sub=[c.rarity,c.num].filter(Boolean).join(" \u2022 ");
   return '<div class="row"><div class="img" style="background-image:url(\''+esc(img)+'\')"></div>'+
     '<div class="info"><div class="name">'+esc(c.name)+'</div><div class="set">'+esc(c.set)+'</div><div class="rar">'+esc(sub)+'</div>'+

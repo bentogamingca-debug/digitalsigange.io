@@ -17,6 +17,7 @@
   #list{display:flex;height:100%;width:max-content;will-change:transform}
   .row{flex:none;height:100%;box-sizing:border-box;display:flex;align-items:center;padding:0 3vh;border-right:1px solid #222a40}
   .img{height:81vh;width:57.9vh;border-radius:1.5vh;background:#1b2238 center/cover no-repeat;box-shadow:0 0 3vh #000;flex:none}
+  .ph{display:flex;align-items:center;justify-content:center;text-align:center;font-size:5vh;line-height:1.3;color:#6f7aa0;padding:3vh;box-sizing:border-box}
   .info{margin-left:4vh;width:54vh}
   .name{font-size:6.6vh;line-height:1.15;font-weight:700;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
   .set{font-size:3.8vh;line-height:1.2;color:#9aa5c4;margin-top:1.2vh}
@@ -55,41 +56,41 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Oct 8 2026) - shown instantly on load and kept if the live pull fails.
+/* Built-in backup list (Collectr trending, Oct 9 2026) - shown instantly on load and kept if the live pull fails.
    Row: [id, name, set, rarity, num, price USD, change USD, change % (optional 9th value 1 = price already in CAD)] */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[716221,"Zapdos",S,IR,"133/128",6.62,-2.36,-26.28],
-[696683,"Lapras",S,IR,"131/128",5.53,-4.75,-46.21],
-[716220,"Articuno",S,IR,"132/128",6.83,-2.39,-25.92],
-[716219,"Moltres",S,IR,"130/128",5.77,-2.06,-26.31],
-[716218,"Alolan Exeggutor",S,IR,"129/128",2.18,-1.04,-32.30],
-[716224,"Chandelure",S,IR,"137/128",2.39,-1.59,-39.95],
-[716226,"Galarian Meowth",S,IR,"141/128",7.15,-3.01,-29.63],
-[716228,"Maushold",S,IR,"146/128",11.96,-1.21,-9.19],
-[714360,"Alolan Meowth",S,IR,"139/128",7.45,-2.98,-28.57],
-[714358,"Meowth",S,IR,"144/128",10.50,-3.65,-25.80],
-[716225,"Scraggy",S,IR,"140/128",1.47,-0.91,-38.24],
-[696685,"Lycanroc",S,IR,"138/128",1.69,-0.18,-9.63],
-[717621,"Kommo-o",S,IR,"143/128",1.55,-0.59,-27.57],
-[716227,"Gholdengo",S,IR,"142/128",1.52,-0.65,-29.95],
-[712944,"Pikachu",S,"","040/128",2.02,-1.22,-37.65],
-[716223,"Morpeko",S,IR,"135/128",4.42,-3.37,-43.26],
-[696686,"Hisuian Zorua",S,IR,"145/128",4.90,-2.94,-37.50],
-[696680,"Pikachu",S,"","036/128",1.16,-0.77,-39.90],
-[716222,"Toxtricity",S,IR,"134/128",2.57,-1.30,-33.59],
-[696684,"Drifloon",S,IR,"136/128",3.50,-1.52,-30.28],
-[712939,"Pikachu",S,"","032/128",1.02,-0.91,-47.15],
-[712935,"Pikachu",S,"","025/128",0.53,-0.50,-48.54],
-[712952,"Pikachu ex",S,"Double Rare","054/128",1.14,-0.27,-19.15],
-[716465,"Mew ex",S,"Double Rare","066/128",2.94,-1.76,-37.45],
-[716485,"Gengar ex",S,"","090/128",1.33,-1.10,-45.27],
-[712937,"Pikachu",S,"","028/128",0.87,-0.32,-26.89],
-[717605,"Mew ex",S,"Special Illustration Rare","152/128",90.54,-54.79,-37.70],
-[712943,"Pikachu",S,"","039/128",0.72,-0.66,-47.83],
-[712946,"Pikachu",S,"","042/128",0.83,-0.34,-29.06],
-[712934,"Pikachu",S,"","023/128",0.79,-0.74,-48.37]
+[716221,"Zapdos",S,IR,"133/128",6.40,-2.27,-26.18],
+[696683,"Lapras",S,IR,"131/128",6.30,-3.35,-34.72],
+[716220,"Articuno",S,IR,"132/128",5.95,-3.08,-34.11],
+[716219,"Moltres",S,IR,"130/128",5.55,-2.71,-32.81],
+[716228,"Maushold",S,IR,"146/128",12.53,-2.39,-16.02],
+[714360,"Alolan Meowth",S,IR,"139/128",7.71,-2.44,-24.04],
+[716218,"Alolan Exeggutor",S,IR,"129/128",2.11,-1.29,-37.94],
+[716226,"Galarian Meowth",S,IR,"141/128",6.13,-3.73,-37.83],
+[716225,"Scraggy",S,IR,"140/128",1.42,-0.77,-35.16],
+[714358,"Meowth",S,IR,"144/128",9.49,-2.44,-20.45],
+[717621,"Kommo-o",S,IR,"143/128",1.59,-0.22,-12.15],
+[716227,"Gholdengo",S,IR,"142/128",1.48,-0.97,-39.59],
+[716224,"Chandelure",S,IR,"137/128",2.25,-1.37,-37.85],
+[696686,"Hisuian Zorua",S,IR,"145/128",4.45,-2.87,-39.21],
+[712944,"Pikachu",S,"","040/128",2.01,-1.89,-48.46],
+[716223,"Morpeko",S,IR,"135/128",4.67,-2.82,-37.65],
+[696685,"Lycanroc",S,IR,"138/128",1.30,-0.87,-40.09],
+[716222,"Toxtricity",S,IR,"134/128",2.25,-1.09,-32.63],
+[712952,"Pikachu ex",S,"Double Rare","054/128",1.17,-0.16,-12.03],
+[716485,"Gengar ex",S,"","090/128",1.39,-0.84,-37.67],
+[716465,"Mew ex",S,"Double Rare","066/128",2.70,-2.90,-51.79],
+[696680,"Pikachu",S,"","036/128",1.20,-0.95,-44.19],
+[696684,"Drifloon",S,IR,"136/128",3.33,-1.58,-32.18],
+[712939,"Pikachu",S,"","032/128",0.99,-1.05,-51.47],
+[712937,"Pikachu",S,"","028/128",0.95,-0.30,-24.00],
+[712941,"Pikachu",S,"","034/128",1.13,-0.75,-39.89],
+[712951,"Pikachu ex",S,"Double Rare","053/128",1.11,-0.20,-15.27],
+[712935,"Pikachu",S,"","025/128",0.52,-0.33,-38.82],
+[712943,"Pikachu",S,"","039/128",0.87,-0.71,-44.94],
+[717610,"Gengar ex",S,"Special Illustration Rare","154/128",70.53,-31.92,-31.16]
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
-var BACKUP_DATE = "Oct 8, 2026";   // date of the backup list above (shown when live data isn't available)
+var BACKUP_DATE = "Oct 9, 2026";   // date of the backup list above (shown when live data isn't available)
 
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 
@@ -104,9 +105,9 @@ function fetchT(u){
 }
 
 function rowHtml(c){
-  var up=c.chg>=0,k=c.cad?1:rate,p=c.price*k,ch=Math.abs(c.chg)*k,img=c.img||IMG.replace("{id}",c.id);
+  var up=c.chg>=0,k=c.cad?1:rate,p=c.price*k,ch=Math.abs(c.chg)*k,img=c.img||(c.id?IMG.replace("{id}",c.id):"");
   var sub=[c.rarity,c.num].filter(Boolean).join(" \u2022 ");
-  return '<div class="row"><div class="img" style="background-image:url(\''+esc(img)+'\')"></div>'+
+  return '<div class="row">'+(img?'<div class="img" style="background-image:url(\''+esc(img)+'\')"></div>':'<div class="img ph">'+esc(c.name)+'<br>'+esc(c.num)+'</div>')+
     '<div class="info"><div class="name">'+esc(c.name)+'</div><div class="set">'+esc(c.set)+'</div><div class="rar">'+esc(sub)+'</div>'+
     '<div class="price">C$'+p.toFixed(2)+'</div>'+
     '<div class="chg '+(up?"up":"dn")+'">'+(up?"\u25B2 +":"\u25BC -")+'C$'+ch.toFixed(2)+' ('+(up?"+":"")+Number(c.pct).toFixed(2)+'%)</div></div></div>';

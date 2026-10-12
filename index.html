@@ -56,41 +56,41 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Oct 11 2026) - shown instantly on load and kept if the live pull fails.
+/* Built-in backup list (Collectr trending, Oct 12 2026) - shown instantly on load and kept if the live pull fails.
    Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (converted at 1 USD = 1.4222 CAD) */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[716220,"Articuno",S,IR,"132/128",9.74,-1.88,-16.16,1],
-[716219,"Moltres",S,IR,"130/128",9.22,1.29,16.34,1],
-[716221,"Zapdos",S,IR,"133/128",9.61,-0.18,-1.89,1],
-[696683,"Lapras",S,IR,"131/128",8.59,-1.76,-17.03,1],
-[716218,"Alolan Exeggutor",S,IR,"129/128",3.03,-0.50,-14.11,1],
-[716228,"Maushold",S,IR,"146/128",16.98,-1.52,-8.22,1],
-[714360,"Alolan Meowth",S,IR,"139/128",11.32,-1.76,-13.48,1],
-[716226,"Galarian Meowth",S,IR,"141/128",9.94,-1.10,-9.92,1],
-[716224,"Chandelure",S,IR,"137/128",2.90,-1.41,-32.67,1],
-[712944,"Pikachu",S,"","040/128",3.06,-0.30,-8.90,1],
-[714358,"Meowth",S,IR,"144/128",14.44,-0.41,-2.78,1],
-[716227,"Gholdengo",S,IR,"142/128",2.20,-0.14,-6.06,1],
-[717621,"Kommo-o",S,IR,"143/128",1.98,-0.07,-3.47,1],
-[716223,"Morpeko",S,IR,"135/128",6.70,-1.01,-13.10,1],
-[716225,"Scraggy",S,IR,"140/128",1.74,-0.31,-15.28,1],
-[696685,"Lycanroc",S,IR,"138/128",2.35,0.60,34.15,1],
-[696680,"Pikachu",S,"","036/128",2.12,0.01,0.68,1],
-[712941,"Pikachu",S,"","034/128",1.81,-0.28,-13.61,1],
-[712939,"Pikachu",S,"","032/128",1.31,-0.34,-20.69,1],
-[712937,"Pikachu",S,"","028/128",1.49,0.24,19.32,1],
-[696684,"Drifloon",S,IR,"136/128",3.74,-2.19,-36.93,1],
-[716310,"Pikachu",S,PR,"027/128",1.49,-0.18,-11.02,1],
-[712943,"Pikachu",S,"","039/128",1.02,-0.26,-20.00,1],
-[712935,"Pikachu",S,"","025/128",0.80,-0.28,-26.32,1],
-[716222,"Toxtricity",S,IR,"134/128",3.46,0.14,4.29,1],
-[696686,"Hisuian Zorua",S,IR,"145/128",6.93,-0.55,-7.41,1],
-[716309,"Pikachu",S,PR,"024/128",0.91,-0.16,-14.67,1],
-[712952,"Pikachu ex",S,"Double Rare","054/128",1.78,0.17,10.62,1],
-[712934,"Pikachu",S,"","023/128",1.10,-0.27,-19.79,1],
-[712942,"Pikachu",S,"","038/128",1.18,-0.31,-20.95,1]
+[717609,"Mew - B/RGB",S,"Holo Rare","B/RGB",5328.63,-2241.37,-29.61,1],
+[717608,"Mew - G/RGB",S,"Holo Rare","G/RGB",5317.25,0.00,0.00,1],
+[717607,"Mew - R/RGB",S,"Holo Rare","R/RGB",8533.58,0.00,0.00,1],
+[714372,"Charizard","30th Celebration: Classic Collection","Classic Collection","4/102",207.36,-30.51,-12.83,1],
+[696688,"Mew ex",S,"Futuristic Rare","158/128",89.91,2.18,2.48,1],
+[696687,"Mewtwo ex",S,"Futuristic Rare","157/128",65.38,3.51,5.68,1],
+[713256,"Pikachu ex - 109 (30th Celebration)","Mega Evolution Promos","Promo","109",354.80,-71.79,-16.83,1],
+[684462,"Charmander","Mega Evolution Promos","Promo","038",39.52,0.97,2.51,1],
+[684461,"Bulbasaur","Mega Evolution Promos","Promo","037",28.39,-1.38,-4.63,1],
+[684463,"Squirtle","Mega Evolution Promos","Promo","039",31.79,-0.11,-0.36,1],
+[686505,"Gengar (Cosmos Holo) (EB Games Exclusive)","Miscellaneous Cards & Products","Rare","050/088",261.74,2.50,0.97,1],
+[659612,"Mega Charizard X ex","Mega Evolution Promos","Promo","023",34.66,-0.44,-1.26,1],
+[517045,"Charizard ex","SV: 151","Special Illustration Rare","199/165",458.06,-29.37,-6.03,1],
+[676096,"Mega Gengar ex","Ascended Heroes","Special Illustration Rare","284/217",1185.69,24.69,2.13,1],
+[676088,"Pikachu ex","Ascended Heroes","Special Illustration Rare","276/217",1153.01,-154.07,-11.79,1],
+[676102,"Mega Dragonite ex","Ascended Heroes","Special Illustration Rare","290/217",681.26,-52.11,-7.11,1],
+[676089,"Pikachu ex","Ascended Heroes","Special Illustration Rare","277/217",428.81,-2.18,-0.50,1],
+[676106,"Mega Charizard Y ex","Ascended Heroes","Mega Hyper Rare","294/217",419.79,-33.59,-7.41,1],
+[676107,"Mega Dragonite ex","Ascended Heroes","Mega Hyper Rare","295/217",254.02,-29.41,-10.38,1],
+[662184,"Mega Charizard X ex","Phantasmal Flames","Special Illustration Rare","125/094",904.09,-27.73,-2.98,1],
+[662185,"Mega Charizard X ex","Phantasmal Flames","Mega Hyper Rare","130/094",303.16,-28.32,-8.54,1],
+[657401,"Monkey.D.Luffy (118) (3rd Anniversary)","Carrying On His Will","SEC","OP13-118",12728.69,0.00,0.00,1],
+[657409,"Portgas.D.Ace (119) (Wanted Poster)","Carrying On His Will","SEC","OP13-119",608.52,-8.18,-1.33,1],
+[654518,"Mega Lucario ex","Mega Evolution","Special Illustration Rare","179/132",241.32,-6.34,-2.56,1],
+[654517,"Mega Gardevoir ex","Mega Evolution","Special Illustration Rare","178/132",242.57,-1.93,-0.79,1],
+[654527,"Mega Lucario ex","Mega Evolution","Mega Hyper Rare","188/132",322.53,-7.05,-2.14,1],
+[654526,"Mega Gardevoir ex","Mega Evolution","Mega Hyper Rare","187/132",247.72,-18.93,-7.10,1],
+[642558,"Seismitoad","Black Bolt",IR,"105/086",299.37,-7.86,-2.56,1],
+[642623,"Zekrom ex","Black Bolt","Black White Rare","172/086",857.86,-11.38,-1.31,1],
+[642289,"Reshiram ex","White Flare","Black White Rare","173/086",666.76,-12.52,-1.84,1]
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
-var BACKUP_DATE = "Oct 11, 2026";   // date of the backup list above (shown when live data isn't available)
+var BACKUP_DATE = "Oct 12, 2026";   // date of the backup list above (shown when live data isn't available)
 
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 

@@ -36,7 +36,8 @@
 /* ============ SETTINGS ============ */
 // Your own Cloudflare Worker address (see worker.js). Tried first when set; public relays are the backup.
 var WORKER_URL = "";
-var COLLECTR_URL = "https://app.getcollectr.com/?sortType=trendingToday&sortOrder=DESC&category=68&cardType=cards";
+var COLLECTR_URLS = ["https://app.getcollectr.com/?sortType=trendingToday&sortOrder=DESC&cardType=cards&category=3","https://app.getcollectr.com/?sortType=trendingToday&sortOrder=DESC&cardType=cards&category=68","https://app.getcollectr.com/?sortType=trendingToday&sortOrder=DESC&cardType=cards&category=89"];   // first PER_URL cards of each are taken, then shuffled
+var PER_URL = 10;
 var PROXIES = [
   function(u){return "https://corsproxy.io/?url="+encodeURIComponent(u)},
   function(u){return "https://api.allorigins.win/raw?url="+encodeURIComponent(u)}
@@ -56,39 +57,39 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Oct 14 2026) - shown instantly on load and kept if the live pull fails.
+/* Built-in backup list (Collectr trending, Oct 14 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
    Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (converted at 1 USD = 1.42 CAD) */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[710585,"Loki","The World's Strongest Warriors","SEC","OP17-119",35.68,0.94,2.70,1],
-[710861,"Monkey.D.Luffy (093)","The World's Strongest Warriors","SR","OP17-093",3.32,-0.31,-8.59,1],
-[709836,"Rocks.D.Xebec","The World's Strongest Warriors","SEC","OP17-118",25.79,-1.77,-6.44,1],
-[707120,"Shanks (022)","The World's Strongest Warriors","SR","OP17-022",5.14,0.92,21.89,1],
-[711426,"Usopp","The World's Strongest Warriors","SR","OP17-080",2.03,0.21,11.72,1],
-[710541,"Gloriosa","The World's Strongest Warriors","SR","OP17-046",3.68,0.30,8.82,1],
-[711325,"Charlotte Linlin (112)","The World's Strongest Warriors","SR","OP17-112",4.97,0.26,5.42,1],
-[707133,"Kaido (062)","The World's Strongest Warriors","SR","OP17-062",1.45,0.04,3.03,1],
-[711499,"Edward.Newgate (005)","The World's Strongest Warriors","SR","OP17-005",1.68,-0.01,-0.84,1],
+[716226,"Galarian Meowth",S,IR,"141/128",8.69,-2.20,-20.21,1],
 [710542,"Shiki","The World's Strongest Warriors","SR","OP17-048",1.43,0.27,23.17,1],
-[695756,"Marshall.D.Teach (119)","The Time of Battle","SEC","OP16-119",34.46,-1.16,-3.27,1],
-[705923,"Shanks (Alternate Art)","The World's Strongest Warriors","L","OP17-020",42.32,-11.66,-21.60,1],
-[708074,"Charlotte Pudding","The World's Strongest Warriors","R","OP17-109",3.54,0.40,12.67,1],
-[710578,"Kaido (063)","The World's Strongest Warriors","SR","OP17-063",0.74,-0.03,-3.70,1],
-[710862,"Monkey.D.Luffy (093) (Alternate Art)","The World's Strongest Warriors","SR","OP17-093",48.25,-3.24,-6.29,1],
-[712115,"Nico Robin (Alternate Art)","The World's Strongest Warriors","R","OP17-087",52.17,1.66,3.29,1],
-[707124,"Monkey.D.Luffy (Alternate Art)","The World's Strongest Warriors","L","OP17-079",65.06,-6.72,-9.36,1],
-[710615,"Yamato","The World's Strongest Warriors","R","OP17-074",3.05,0.07,2.38,1],
-[710586,"Loki (Alternate Art)","The World's Strongest Warriors","SEC","OP17-119",70.01,-7.11,-9.22,1],
-[710858,"Edward.Newgate (040) (TR)","The World's Strongest Warriors","TR","OP17-040",68.23,-2.09,-2.97,1],
-[711422,"Yasopp","The World's Strongest Warriors","SR","OP17-031",1.05,-0.20,-15.91,1],
-[10031698,"Monkey.D.Luffy (Magazine Promo) (JP)","One Piece Promos","SR","ST21-014",174.52,-19.38,-10.00,1],
-[710591,"Rocks.D.Xebec (039) (Alternate Art)","The World's Strongest Warriors","L","OP17-039",58.66,-7.63,-11.50,1],
-[694932,"Portgas.D.Ace (118)","The Time of Battle","SEC","OP16-118",16.98,-2.58,-13.21,1],
-[712087,"Shiki (048) (Alternate Art)","The World's Strongest Warriors","SR","OP17-048",17.37,-2.66,-13.26,1],
-[712091,"Kaido (062) (Super Alternate Art)","The World's Strongest Warriors","SR","OP17-062",272.34,12.20,4.69,1],
-[10036480,"Monkey.D.Luffy (JP)","The World's Strongest Warriors","SR","OP17-093",9.66,0.00,0.00,1],
-[710540,"Charlotte Linlin (Alternate Art)","The World's Strongest Warriors","R","OP17-049",29.93,-3.54,-10.56,1],
-[711427,"Usopp (Alternate Art)","The World's Strongest Warriors","SR","OP17-080",22.45,-0.09,-0.38,1],
-[712745,"DON!! Card (World United) (Luffy)","One Piece Promotion Cards","","",19.97,-0.09,-0.42,1]
+[711499,"Edward.Newgate (005)","The World's Strongest Warriors","SR","OP17-005",1.68,-0.01,-0.84,1],
+[710861,"Monkey.D.Luffy (093)","The World's Strongest Warriors","SR","OP17-093",3.32,-0.31,-8.59,1],
+[652941,"Sabotage","Origins","Rare","156/298",19.10,1.21,6.75,1],
+[707648,"Kai'Sa, Survivor","Vendetta","Epic","SP1/006",116.41,-5.38,-4.42,1],
+[711426,"Usopp","The World's Strongest Warriors","SR","OP17-080",2.03,0.21,11.72,1],
+[714360,"Alolan Meowth",S,IR,"139/128",9.98,-1.09,-9.87,1],
+[711325,"Charlotte Linlin (112)","The World's Strongest Warriors","SR","OP17-112",4.97,0.26,5.42,1],
+[707120,"Shanks (022)","The World's Strongest Warriors","SR","OP17-022",5.14,0.92,21.89,1],
+[716228,"Maushold",S,IR,"146/128",15.72,-0.80,-4.82,1],
+[716224,"Chandelure",S,IR,"137/128",2.75,-0.82,-23.02,1],
+[652876,"Stupefy","Origins","Common","095/298",0.37,0.00,0.00,1],
+[705996,"Ahri, Inquisitive","Vendetta","Epic","SP3/006",96.94,-3.44,-3.42,1],
+[710541,"Gloriosa","The World's Strongest Warriors","SR","OP17-046",3.68,0.30,8.82,1],
+[652876,"Stupefy","Origins","Common","095/298",1.35,-0.13,-8.65,1],
+[716218,"Alolan Exeggutor",S,IR,"129/128",2.23,-0.65,-22.66,1],
+[716221,"Zapdos",S,IR,"133/128",8.95,0.06,0.64,1],
+[716220,"Articuno",S,IR,"132/128",9.13,-0.26,-2.72,1],
+[652801,"Falling Star","Origins","Rare","029/298",18.22,0.50,2.80,1],
+[710585,"Loki","The World's Strongest Warriors","SEC","OP17-119",35.68,0.94,2.70,1],
+[652898,"Thousand-Tailed Watcher","Origins","Rare","116/298",27.65,-1.05,-3.66,1],
+[652990,"Tideturner","Origins","Rare","199/298",3.72,0.31,9.17,1],
+[709836,"Rocks.D.Xebec","The World's Strongest Warriors","SEC","OP17-118",25.79,-1.77,-6.44,1],
+[707611,"Astral Heron","Vendetta","Epic","044/166",58.18,2.98,5.40,1],
+[653094,"Kai'Sa - Daughter of the Void (Alternate Art)","Origins","Showcase","299*/298",4422.32,0.00,0.00,1],
+[716223,"Morpeko",S,IR,"135/128",7.09,-0.70,-8.94,1],
+[716219,"Moltres",S,IR,"130/128",7.37,-1.26,-14.64,1],
+[707133,"Kaido (062)","The World's Strongest Warriors","SR","OP17-062",1.45,0.04,3.03,1],
+[696683,"Lapras",S,IR,"131/128",7.50,-1.63,-17.88,1]
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
 var BACKUP_DATE = "Oct 14, 2026";   // date of the backup list above (shown when live data isn't available)
 
@@ -174,16 +175,25 @@ function parseCollectr(html){
   return out;
 }
 
-// Asks every relay at once; the first good answer wins.
-function getCollectr(){
+// Asks every relay at once for one category page; the first good answer wins.
+function getOne(url){
   return new Promise(function(res,rej){
     var fails=0,done=false;
     PROXIES.forEach(function(px){
-      fetchT(px(COLLECTR_URL)).then(function(r){if(!r.ok)throw 0;return r.text()})
-        .then(function(h){var l=parseCollectr(h);if(l.length<10)throw 0;return l})
+      fetchT(px(url)).then(function(r){if(!r.ok)throw 0;return r.text()})
+        .then(function(h){var l=parseCollectr(h);if(l.length<PER_URL)throw 0;return l})
         .then(function(l){if(!done){done=true;res(l)}})
         .catch(function(){if(++fails===PROXIES.length&&!done)rej()});
     });
+  });
+}
+
+// Takes the first PER_URL cards of every category page, then shuffles them once.
+function getCollectr(){
+  return Promise.all(COLLECTR_URLS.map(getOne)).then(function(all){
+    var out=[].concat.apply([],all.map(function(l){return l.slice(0,PER_URL)}));
+    for(var i=out.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=out[i];out[i]=out[j];out[j]=t}
+    return out;
   });
 }
 

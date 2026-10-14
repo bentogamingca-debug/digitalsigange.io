@@ -36,7 +36,7 @@
 /* ============ SETTINGS ============ */
 // Your own Cloudflare Worker address (see worker.js). Tried first when set; public relays are the backup.
 var WORKER_URL = "";
-var COLLECTR_URL = "https://app.getcollectr.com/?sortType=trendingToday&sortOrder=DESC&category=89,68,3&cardType=cards";
+var COLLECTR_URL = "https://app.getcollectr.com/?sortType=trendingToday&sortOrder=DESC&category=89&cardType=cards";
 var PROXIES = [
   function(u){return "https://corsproxy.io/?url="+encodeURIComponent(u)},
   function(u){return "https://api.allorigins.win/raw?url="+encodeURIComponent(u)}
@@ -56,41 +56,41 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Oct 13 2026) - shown instantly on load and kept if the live pull fails.
+/* Built-in backup list (Collectr trending, Oct 14 2026) - shown instantly on load and kept if the live pull fails.
    Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (converted at 1 USD = 1.42 CAD) */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[716221,"Zapdos",S,IR,"133/128",9.19,1.16,14.51,1],
-[696683,"Lapras",S,IR,"131/128",8.02,-1.32,-14.13,1],
-[716219,"Moltres",S,IR,"130/128",8.04,0.09,1.07,1],
-[716220,"Articuno",S,IR,"132/128",9.22,-0.37,-3.85,1],
-[716228,"Maushold",S,IR,"146/128",15.97,-0.65,-3.93,1],
-[716226,"Galarian Meowth",S,IR,"141/128",9.73,-0.51,-4.99,1],
-[716218,"Alolan Exeggutor",S,IR,"129/128",2.58,-0.82,-24.17,1],
-[714360,"Alolan Meowth",S,IR,"139/128",9.80,0.45,4.86,1],
-[716224,"Chandelure",S,IR,"137/128",3.25,0.10,3.15,1],
-[716225,"Scraggy",S,IR,"140/128",1.96,-0.06,-2.82,1],
-[696685,"Lycanroc",S,IR,"138/128",2.31,0.14,6.54,1],
-[716223,"Morpeko",S,IR,"135/128",7.55,0.53,7.47,1],
-[714358,"Meowth",S,IR,"144/128",14.03,-0.09,-0.60,1],
-[717621,"Kommo-o",S,IR,"143/128",1.92,0.06,3.05,1],
-[716227,"Gholdengo",S,IR,"142/128",2.13,0.23,11.94,1],
-[716465,"Mew ex",S,"Double Rare","066/128",4.77,0.40,9.09,1],
-[696686,"Hisuian Zorua",S,IR,"145/128",6.80,-0.44,-6.08,1],
-[712944,"Pikachu",S,"","040/128",3.49,-0.07,-1.99,1],
-[716485,"Gengar ex",S,"","090/128",2.19,-0.21,-8.88,1],
-[716222,"Toxtricity",S,IR,"134/128",3.39,0.09,2.58,1],
-[696684,"Drifloon",S,IR,"136/128",3.62,-1.42,-28.17,1],
-[712952,"Pikachu ex",S,"Double Rare","054/128",1.60,0.07,4.63,1],
-[712935,"Pikachu",S,"","025/128",0.70,0.03,4.26,1],
-[712934,"Pikachu",S,"","023/128",1.45,0.31,27.50,1],
-[712939,"Pikachu",S,"","032/128",1.16,-0.38,-24.77,1],
-[696680,"Pikachu",S,"","036/128",1.24,-0.14,-10.31,1],
-[712951,"Pikachu ex",S,"Double Rare","053/128",1.35,-0.09,-5.94,1],
-[712937,"Pikachu",S,"","028/128",0.85,-0.43,-33.33,1],
-[712938,"Pikachu",S,"","030/128",0.80,-0.17,-17.65,1],
-[713260,"Nidorina","Mega Evolution Promos","Promo","101",2.39,-0.82,-25.66,1]
+[652898,"Thousand-Tailed Watcher","Origins","Rare","116/298",27.65,-1.05,-3.66,1],
+[652801,"Falling Star","Origins","Rare","029/298",18.22,0.50,2.80,1],
+[707648,"Kai'Sa, Survivor","Vendetta","Epic","SP1/006",116.41,-5.38,-4.42,1],
+[652990,"Tideturner","Origins","Rare","199/298",3.72,0.31,9.17,1],
+[707611,"Astral Heron","Vendetta","Epic","044/166",58.18,2.98,5.40,1],
+[652941,"Sabotage","Origins","Rare","156/298",19.10,1.21,6.75,1],
+[652876,"Stupefy","Origins","Common","095/298",0.37,0.00,0.00,1],
+[652876,"Stupefy","Origins","Common","095/298",1.35,-0.13,-8.65,1],
+[705996,"Ahri, Inquisitive","Vendetta","Epic","SP3/006",96.94,-3.44,-3.42,1],
+[653094,"Kai'Sa - Daughter of the Void (Alternate Art)","Origins","Showcase","299*/298",4422.32,0.00,0.00,1],
+[652812,"Kai'Sa - Survivor","Origins","Epic","039/298",93.83,-1.66,-1.74,1],
+[653101,"Ahri - Nine-Tailed Fox (Overnumbered)","Origins","Showcase","303/298",519.04,-0.80,-0.15,1],
+[653102,"Ahri - Nine-Tailed Fox (Signature)","Origins","Showcase","303*/298",5270.12,0.00,0.00,1],
+[664913,"Ahri - Inquisitive (Signature)","Spiritforged","Showcase","227*/221",4734.98,0.00,0.00,1],
+[662898,"Teemo - Scout (GG EZ)","Riftbound Organized Play Promotional Cards","Showcase","197b/298",2031.14,0.00,0.00,1],
+[653093,"Kai'Sa - Daughter of the Void (Overnumbered)","Origins","Showcase","299/298",381.55,-7.94,-2.04,1],
+[652905,"Time Warp","Origins","Epic","122/298",56.89,-5.55,-8.89,1],
+[652813,"Kai'Sa - Survivor (Alternate Art)","Origins","Showcase","039a/298",96.72,-4.29,-4.25,1],
+[664881,"Ahri - Inquisitive (Overnumbered)","Spiritforged","Showcase","227/221",941.90,0.00,0.00,1],
+[685925,"Baron Nashor (Ultimate)","Unleashed","Showcase","238/219",2596.41,0.00,0.00,1],
+[652946,"Dazzling Aurora","Origins","Epic","160/298",43.27,-5.85,-11.91,1],
+[652947,"Deadbloom Predator","Origins","Epic","161/298",2.85,0.23,8.65,1],
+[652996,"Seal of Discord","Origins","Epic","204/298",46.99,-2.47,-5.00,1],
+[653038,"Baited Hook","Origins","Epic","242/298",74.38,-7.61,-9.28,1],
+[653104,"Lee Sin - Blind Monk (Alternate Art)","Origins","Showcase","304*/298",1930.60,0.00,0.00,1],
+[653098,"Jinx - Loose Cannon (Alternate Art)","Origins","Showcase","301*/298",1904.40,105.72,5.88,1],
+[652972,"Stacked Deck","Origins","Uncommon","183/298",0.57,-0.10,-14.89,1],
+[652972,"Stacked Deck","Origins","Uncommon","183/298",3.79,-3.56,-48.46,1],
+[653113,"Miss Fortune - Bounty Hunter (Overnumbered)","Origins","Showcase","309/298",241.77,-9.63,-3.83,1],
+[652855,"Zhonya's Hourglass","Origins","Rare","077/298",24.38,0.27,1.12,1]
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
-var BACKUP_DATE = "Oct 13, 2026";   // date of the backup list above (shown when live data isn't available)
+var BACKUP_DATE = "Oct 14, 2026";   // date of the backup list above (shown when live data isn't available)
 
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 

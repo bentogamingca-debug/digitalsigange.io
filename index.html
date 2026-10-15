@@ -57,39 +57,39 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Oct 15 2026 - first 10 of categories 3/68 refreshed (89 kept from Oct 14), shuffled) - shown instantly on load and kept if the live pull fails.
-   Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (converted at 1 USD = 1.4219 CAD) */
+/* Built-in backup list (Collectr trending, Oct 15 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
+   Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (cat 3/68 converted at 1 USD = 1.4219 CAD; cat 89 prices taken as shown in CAD) */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[716221,"Zapdos",S,IR,"133/128",8.96,0.06,0.64,1],
-[709836,"Rocks.D.Xebec","The World's Strongest Warriors","SEC","OP17-118",25.79,-1.77,-6.44,1],
-[711426,"Usopp","The World's Strongest Warriors","SR","OP17-080",2.03,0.21,11.72,1],
-[710541,"Gloriosa","The World's Strongest Warriors","SR","OP17-046",3.68,0.30,8.82,1],
-[652898,"Thousand-Tailed Watcher","Origins","Rare","116/298",28.75,0.26,0.90,1],
-[716223,"Morpeko",S,IR,"135/128",7.10,-0.70,-8.94,1],
-[696683,"Lapras",S,IR,"131/128",7.51,-1.64,-17.88,1],
-[652801,"Falling Star","Origins","Rare","029/298",18.24,0.07,0.39,1],
-[652812,"Kai'Sa - Survivor","Origins","Epic","039/298",95.42,-0.14,-0.15,1],
-[710585,"Loki","The World's Strongest Warriors","SEC","OP17-119",35.68,0.94,2.70,1],
-[711499,"Edward.Newgate (005)","The World's Strongest Warriors","SR","OP17-005",1.68,-0.01,-0.84,1],
-[707133,"Kaido (062)","The World's Strongest Warriors","SR","OP17-062",1.45,0.04,3.03,1],
-[705996,"Ahri, Inquisitive","Vendetta","Epic","SP3/006",96.70,-4.02,-3.99,1],
-[710861,"Monkey.D.Luffy (093)","The World's Strongest Warriors","SR","OP17-093",3.32,-0.31,-8.59,1],
-[707611,"Astral Heron","Vendetta","Epic","044/166",59.38,2.87,5.08,1],
-[666489,"Fizz - Trickster","Spiritforged","Rare","140/221",6.37,-0.98,-13.35,1],
-[706057,"Lux, Crownguard","Vendetta","Epic","SP6/006",28.74,-4.66,-13.96,1],
-[716228,"Maushold",S,IR,"146/128",15.74,-0.80,-4.82,1],
-[707648,"Kai'Sa, Survivor","Vendetta","Epic","SP1/006",116.20,-5.82,-4.77,1],
-[716220,"Articuno",S,IR,"132/128",9.14,-0.26,-2.72,1],
-[716218,"Alolan Exeggutor",S,IR,"129/128",2.23,-0.65,-22.66,1],
+[711426,"Usopp","The World's Strongest Warriors","SR","OP17-080",1.85,-0.04,-2.26,1],
 [716224,"Chandelure",S,IR,"137/128",2.76,-0.82,-23.02,1],
-[711325,"Charlotte Linlin (112)","The World's Strongest Warriors","SR","OP17-112",4.97,0.26,5.42,1],
-[714360,"Alolan Meowth",S,IR,"139/128",10.00,-1.09,-9.87,1],
-[653094,"Kai'Sa - Daughter of the Void (Alternate Art)","Origins","Showcase","299*/298",4428.24,0.00,0.00,1],
 [716219,"Moltres",S,IR,"130/128",7.38,-1.27,-14.64,1],
+[707648,"Kai'Sa, Survivor","Vendetta","Epic","SP1/006",116.20,-5.82,-4.77,1],
+[652898,"Thousand-Tailed Watcher","Origins","Rare","116/298",28.75,0.26,0.90,1],
+[716218,"Alolan Exeggutor",S,IR,"129/128",2.23,-0.65,-22.66,1],
+[0,"Nico Robin (Alternate Art)","The World's Strongest Warriors","R","OP17-087",52.05,1.61,3.18,1],
+[716226,"Galarian Meowth",S,IR,"141/128",8.70,-2.20,-20.21,1],
+[652812,"Kai'Sa - Survivor","Origins","Epic","039/298",95.42,-0.14,-0.15,1],
+[696683,"Lapras",S,IR,"131/128",7.51,-1.64,-17.88,1],
+[716228,"Maushold",S,IR,"146/128",15.74,-0.80,-4.82,1],
+[653094,"Kai'Sa - Daughter of the Void (Alternate Art)","Origins","Showcase","299*/298",4428.24,0.00,0.00,1],
+[0,"Charlotte Pudding","The World's Strongest Warriors","R","OP17-109",3.28,-0.03,-0.86,1],
+[716221,"Zapdos",S,IR,"133/128",8.96,0.06,0.64,1],
+[705996,"Ahri, Inquisitive","Vendetta","Epic","SP3/006",96.70,-4.02,-3.99,1],
+[714360,"Alolan Meowth",S,IR,"139/128",10.00,-1.09,-9.87,1],
+[711499,"Edward.Newgate (005)","The World's Strongest Warriors","SR","OP17-005",1.32,-0.18,-12.26,1],
+[707120,"Shanks (022)","The World's Strongest Warriors","SR","OP17-022",4.65,0.10,2.19,1],
+[652801,"Falling Star","Origins","Rare","029/298",18.24,0.07,0.39,1],
+[666489,"Fizz - Trickster","Spiritforged","Rare","140/221",6.37,-0.98,-13.35,1],
+[710541,"Gloriosa","The World's Strongest Warriors","SR","OP17-046",3.30,-0.33,-9.02,1],
+[709836,"Rocks.D.Xebec","The World's Strongest Warriors","SEC","OP17-118",25.70,-0.82,-3.11,1],
+[710861,"Monkey.D.Luffy (093)","The World's Strongest Warriors","SR","OP17-093",3.34,-0.43,-11.32,1],
+[707611,"Astral Heron","Vendetta","Epic","044/166",59.38,2.87,5.08,1],
+[710585,"Loki","The World's Strongest Warriors","SEC","OP17-119",34.59,-0.36,-1.02,1],
+[706057,"Lux, Crownguard","Vendetta","Epic","SP6/006",28.74,-4.66,-13.96,1],
+[716220,"Articuno",S,IR,"132/128",9.14,-0.26,-2.72,1],
+[711325,"Charlotte Linlin (112)","The World's Strongest Warriors","SR","OP17-112",4.62,-0.36,-7.14,1],
 [652855,"Zhonya's Hourglass","Origins","Rare","077/298",25.20,2.56,11.31,1],
-[710542,"Shiki","The World's Strongest Warriors","SR","OP17-048",1.43,0.27,23.17,1],
-[707120,"Shanks (022)","The World's Strongest Warriors","SR","OP17-022",5.14,0.92,21.89,1],
-[716226,"Galarian Meowth",S,IR,"141/128",8.70,-2.20,-20.21,1]
+[716223,"Morpeko",S,IR,"135/128",7.10,-0.70,-8.94,1]
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
 var BACKUP_DATE = "Oct 15, 2026";   // date of the backup list above (shown when live data isn't available)
 

@@ -57,7 +57,7 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Oct 26 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
+/* Built-in backup list (Collectr trending, Oct 28 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
    Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (all categories converted at 1 USD = 1.4023 CAD) */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
 [707611,"Astral Heron","Vendetta","Epic","044/166",63.65,7.12,12.6,1],
@@ -91,7 +91,7 @@ var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
 [716225,"Scraggy",S,IR,"140/128",1.81,0.03,1.57,1],
 [710862,"Monkey.D.Luffy (093) (Alternate Art)","The World's Strongest Warriors","SR","OP17-093",45,-2.65,-5.56,1],
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
-var BACKUP_DATE = "Oct 26, 2026";   // date of the backup list above (shown when live data isn't available)
+var BACKUP_DATE = "Oct 28, 2026";   // date of the backup list above (shown when live data isn't available)
 
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 

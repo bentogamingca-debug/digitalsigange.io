@@ -57,41 +57,41 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Oct 30 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
-   Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (all categories converted at 1 USD = 1.3996 CAD) */
+/* Built-in backup list (Collectr trending, Oct 31 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
+   Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (all categories converted at 1 USD = 1.3969 CAD) */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[716220,"Articuno",S,IR,"132/128",6.52,-0.67,-9.34,1],
-[722907,"Riven, Broken Blade","Radiance","Rare","043/167",8.4,8.4,0,1],
-[710861,"Monkey.D.Luffy (093)","The World's Strongest Warriors","SR","OP17-093",3.3,0.03,0.85,1],
-[712944,"Pikachu",S,"","040/128",7.71,4.63,150.45,1],
-[711499,"Edward.Newgate (005)","The World's Strongest Warriors","SR","OP17-005",1.47,-0.18,-11.02,1],
-[684546,"Rift Herald","Unleashed","Epic","179/219",10.92,-1.2,-9.93,1],
-[722299,"Heimerdinger, Academy Instructor","Radiance","Rare","132/167",7.78,-20.2,-72.19,1],
-[722321,"Neeko, Bleeding In","Radiance","Epic","167/167",55.98,55.98,0,1],
-[716221,"Zapdos",S,IR,"133/128",6.37,-0.76,-10.61,1],
-[710585,"Loki","The World's Strongest Warriors","SEC","OP17-119",33.87,-1.3,-3.7,1],
-[722275,"Ahri, Confident","Radiance","Rare","038/167",23.56,-4.42,-15.81,1],
-[710541,"Gloriosa","The World's Strongest Warriors","SR","OP17-046",3.54,-0.08,-2.32,1],
-[711325,"Charlotte Linlin (112)","The World's Strongest Warriors","SR","OP17-112",5,0.1,2,1],
-[723422,"Orianna, Exquisite","Radiance","Rare","042/167",8.31,8.31,0,1],
-[709836,"Rocks.D.Xebec","The World's Strongest Warriors","SEC","OP17-118",24.13,-1.29,-5.07,1],
-[722851,"Bedeviling Stranger","Radiance","Rare","107/167",18.91,18.91,0,1],
-[716224,"Chandelure",S,IR,"137/128",2.17,-0.83,-27.57,1],
-[707611,"Astral Heron","Vendetta","Epic","044/166",63.53,7.11,12.6,1],
-[723430,"Seraphine, Inspiring","Radiance","Rare","065/167",8.36,8.36,0,1],
-[722879,"Graves, Blasting Through","Radiance","Rare","085/167",7.77,7.77,0,1],
-[716219,"Moltres",S,IR,"130/128",6.61,-0.34,-4.84,1],
-[696683,"Lapras",S,IR,"131/128",6.35,-0.41,-6,1],
-[714360,"Alolan Meowth",S,IR,"139/128",6.94,-0.81,-10.47,1],
-[710615,"Yamato","The World's Strongest Warriors","R","OP17-074",2.59,-0.42,-13.95,1],
-[710862,"Monkey.D.Luffy (093) (Alternate Art)","The World's Strongest Warriors","SR","OP17-093",44.91,-2.65,-5.56,1],
-[707120,"Shanks (022)","The World's Strongest Warriors","SR","OP17-022",4.76,-0.31,-6.08,1],
-[712115,"Nico Robin (Alternate Art)","The World's Strongest Warriors","R","OP17-087",44.96,-6.47,-12.57,1],
-[716218,"Alolan Exeggutor",S,IR,"129/128",2.31,-0.43,-15.82,1],
-[714358,"Meowth",S,IR,"144/128",9.25,-2.81,-23.32,1],
-[716228,"Maushold",S,IR,"146/128",12.11,-1.9,-13.59,1],
+[712886,"Nico Robin (010)","Extra Booster: One Piece Heroine's Edition Vol. 2","L","EB05-010",12.25,-1.7,-12.21,1],
+[716226,"Galarian Meowth",S,IR,"141/128",9.44,-0.13,-1.31,1],
+[718680,"Alvida","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-021",15.8,-19.11,-54.74,1],
+[714360,"Alolan Meowth",S,IR,"139/128",9.15,-0.49,-5.07,1],
+[722321,"Neeko, Bleeding In","Radiance","Epic","167/167",55.88,55.88,0,1],
+[722275,"Ahri, Confident","Radiance","Rare","038/167",23.51,-4.41,-15.81,1],
+[723422,"Orianna, Exquisite","Radiance","Rare","042/167",8.3,8.3,0,1],
+[722879,"Graves, Blasting Through","Radiance","Rare","085/167",7.75,7.75,0,1],
+[718686,"Jewelry Bonney","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-001",34.25,-0.66,-1.88,1],
+[716218,"Alolan Exeggutor",S,IR,"129/128",2.57,0.03,1.1,1],
+[716219,"Moltres",S,IR,"130/128",8.19,0.28,3.53,1],
+[718682,"Gloriosa","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-052",7.64,-27.27,-78.11,1],
+[718681,"Nami","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",6.08,-35.82,-85.5,1],
+[722644,"Nico Robin (010) (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","L","EB05-010",192.93,192.93,0,1],
+[716221,"Zapdos",S,IR,"133/128",7.08,-1.96,-21.64,1],
+[684546,"Rift Herald","Unleashed","Epic","179/219",10.9,-1.2,-9.93,1],
+[723430,"Seraphine, Inspiring","Radiance","Rare","065/167",8.34,8.34,0,1],
+[696686,"Hisuian Zorua",S,IR,"145/128",5.8,-0.89,-13.36,1],
+[716228,"Maushold",S,IR,"146/128",15.04,-0.67,-4.27,1],
+[718684,"Nico Robin (016)","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-016",34.55,-7.35,-17.54,1],
+[707611,"Astral Heron","Vendetta","Epic","044/166",63.41,7.1,12.6,1],
+[716220,"Articuno",S,IR,"132/128",8.9,-0.17,-1.85,1],
+[722907,"Riven, Broken Blade","Radiance","Rare","043/167",8.38,8.38,0,1],
+[722299,"Heimerdinger, Academy Instructor","Radiance","Rare","132/167",7.77,-20.16,-72.19,1],
+[717621,"Kommo-o",S,IR,"143/128",2.04,0.15,8.15,1],
+[696683,"Lapras",S,IR,"131/128",7.77,-0.13,-1.59,1],
+[722851,"Bedeviling Stranger","Radiance","Rare","107/167",18.87,18.87,0,1],
+[718678,"Shirahoshi","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-014",10.23,-31.67,-75.59,1],
+[718683,"Yamato","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-046",15.45,-19.46,-55.74,1],
+[718679,"Miss Buckingham Stussy","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-006",16.18,-18.73,-53.66,1],
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
-var BACKUP_DATE = "Oct 30, 2026";   // date of the backup list above (shown when live data isn't available)
+var BACKUP_DATE = "Oct 31, 2026";   // date of the backup list above (shown when live data isn't available)
 
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 

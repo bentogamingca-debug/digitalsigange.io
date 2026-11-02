@@ -57,41 +57,41 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Nov 1 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
+/* Built-in backup list (Collectr trending, Nov 2 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
    Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (all categories converted at 1 USD = 1.3969 CAD) */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[723148,"Nami (061) (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","SEC","EB05-061",52.94,-226.42,-81.05,1],
-[718683,"Yamato","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-046",10.66,-24.25,-69.47,1],
-[722337,"Seraphine, Not Alone (SP)","Radiance","Showcase","SP5/005",22.77,-58.7,-72.05,1],
-[721334,"Dockside Lock-Up","Radiance","Epic","136/167",4.01,-1.75,-30.34,1],
-[718680,"Alvida","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-021",7.25,-27.66,-79.23,1],
-[722872,"Evelynn, In Control (SP)","Radiance","Showcase","SP3/005",32.77,-43.58,-57.08,1],
-[718686,"Jewelry Bonney","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-001",18.9,-16.01,-45.86,1],
-[716224,"Chandelure",S,IR,"137/128",2.36,-0.08,-3.43,1],
-[718681,"Nami","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",4.3,-37.59,-89.73,1],
-[712944,"Pikachu",S,"","040/128",5.66,0.39,7.43,1],
-[725205,"DON!! Card (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","","",3.59,3.59,0,1],
-[726593,"Nami (055) (Super Rare Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",38.5,38.5,0,1],
-[723428,"Seraphic Wyvern","Radiance","Epic","092/167",7.11,0.01,0.2,1],
-[722644,"Nico Robin (010) (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","L","EB05-010",62.68,62.68,0,1],
-[714360,"Alolan Meowth",S,IR,"139/128",6.73,-0.91,-11.88,1],
-[716221,"Zapdos",S,IR,"133/128",5.36,-2.19,-29.02,1],
-[722321,"Neeko, Blending In","Radiance","Epic","167/167",9.3,0.56,6.39,1],
-[716220,"Articuno",S,IR,"132/128",5.55,-1.66,-23.06,1],
-[716228,"Maushold",S,IR,"146/128",11.85,-2.64,-18.23,1],
-[696683,"Lapras",S,IR,"131/128",5.34,-1.86,-25.83,1],
-[716226,"Galarian Meowth",S,IR,"141/128",6.58,-1.83,-21.76,1],
-[722289,"Demacian Standard","Radiance","Epic","156/167",6.68,0.61,10.14,1],
-[722313,"Kai'Sa, Rebel (SP)","Radiance","Showcase","SP4/005",35.76,4.9,15.89,1],
-[718684,"Nico Robin (016)","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-016",8.09,-33.8,-80.69,1],
-[725863,"Nami (061)","Extra Booster: One Piece Heroine's Edition Vol. 2","SEC","EB05-061",12.35,12.35,0,1],
-[722279,"Blade of the Exile","Radiance","Epic","150/167",53.42,-0.03,-0.05,1],
-[716219,"Moltres",S,IR,"130/128",6.38,-0.77,-10.74,1],
-[716218,"Alolan Exeggutor",S,IR,"129/128",2.19,-0.22,-9.25,1],
-[722845,"Ahri, Confident (SP)","Radiance","Showcase","SP1/005",54.3,-5.31,-8.91,1],
-[722918,"The Ball","Radiance","Epic","146/167",14.47,5.41,59.63,1],
+[718684,"Nico Robin (016)","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-016",5.46,-36.43,-86.96,1],
+[716220,"Articuno",S,IR,"132/128",5.88,-1.72,-22.61,1],
+[716221,"Zapdos",S,IR,"133/128",6.31,-0.64,-9.24,1],
+[718686,"Jewelry Bonney","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-001",18.65,-16.26,-46.58,1],
+[725205,"DON!! Card (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","","",2.42,2.42,0,1],
+[718680,"Alvida","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-021",7.26,-27.64,-79.19,1],
+[696683,"Lapras",S,IR,"131/128",5.81,-0.18,-3.03,1],
+[722337,"Seraphine, Not Alone (SP)","Radiance","Showcase","SP5/005",21.68,-13.9,-39.07,1],
+[716219,"Moltres",S,IR,"130/128",6.02,-1.15,-15.98,1],
+[716226,"Galarian Meowth",S,IR,"141/128",6.22,-0.99,-13.76,1],
+[718681,"Nami","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",4.26,-37.63,-89.83,1],
+[716224,"Chandelure",S,IR,"137/128",2.29,-0.13,-5.2,1],
+[722868,"Encore","Radiance","Epic","152/167",3.06,0.57,23.03,1],
+[722644,"Nico Robin (010) (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","L","EB05-010",56.81,56.81,0,1],
+[718682,"Gloriosa","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-052",5.01,-29.89,-85.63,1],
+[722918,"The Ball","Radiance","Epic","146/167",13.14,-5.95,-31.16,1],
+[714360,"Alolan Meowth",S,IR,"139/128",7.54,0.28,3.85,1],
+[728077,"DON!! Card","Extra Booster: One Piece Heroine's Edition Vol. 2","","",2,2,0,1],
+[712944,"Pikachu",S,"","040/128",4.64,-3,-39.31,1],
+[722872,"Evelynn, In Control (SP)","Radiance","Showcase","SP3/005",31.86,-2.53,-7.35,1],
+[725863,"Nami (061)","Extra Booster: One Piece Heroine's Edition Vol. 2","SEC","EB05-061",13.16,13.16,0,1],
+[722845,"Ahri, Confident (SP)","Radiance","Showcase","SP1/005",53.67,3.59,7.17,1],
+[722279,"Blade of the Exile","Radiance","Epic","150/167",54.19,-3.16,-5.51,1],
+[718683,"Yamato","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-046",12.35,-22.56,-64.63,1],
+[722890,"Ki Burst","Radiance","Common","028/167",0.2,-0.17,-46.15,1],
+[722321,"Neeko, Blending In","Radiance","Epic","167/167",7.91,-2.89,-26.78,1],
+[722891,"Last Caress","Radiance","Epic","154/167",5.43,0.1,1.83,1],
+[716228,"Maushold",S,IR,"146/128",12.36,-1.47,-10.61,1],
+[723428,"Seraphic Wyvern","Radiance","Epic","092/167",7.08,-2.21,-23.76,1],
+[696686,"Hisuian Zorua",S,IR,"145/128",4.16,-1.08,-20.53,1],
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
-var BACKUP_DATE = "Nov 1, 2026";   // date of the backup list above (shown when live data isn't available)
+var BACKUP_DATE = "Nov 2, 2026";   // date of the backup list above (shown when live data isn't available)
 
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 

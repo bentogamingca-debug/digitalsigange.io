@@ -57,41 +57,41 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Nov 5 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
-   Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (all categories converted at 1 USD = 1.3935 CAD) */
+/* Built-in backup list (Collectr trending, Nov 6 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
+   Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (all categories converted at 1 USD = 1.3966 CAD) */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[716220,"Articuno",S,IR,"132/128",4.74,-2.1,-30.75,1],
-[723437,"Whirling Twirligig","Radiance","Epic","022/167",0.57,-0.18,-24.07,1],
-[718684,"Nico Robin (016)","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-016",5.95,-35.84,-85.76,1],
-[696683,"Lapras",S,IR,"131/128",5.13,-1.2,-18.94,1],
-[722845,"Ahri, Confident (SP)","Radiance","Showcase","SP1/005",48.47,-9.43,-16.29,1],
-[716225,"Scraggy",S,IR,"140/128",1.71,0,0,1],
-[728077,"DON!! Card","Extra Booster: One Piece Heroine's Edition Vol. 2","","",1.53,1.53,0,1],
-[716218,"Alolan Exeggutor",S,IR,"129/128",1.81,-0.42,-18.75,1],
-[722847,"Akali, Brash (SP)","Radiance","Showcase","SP2/005",27.37,-5.78,-17.44,1],
-[718681,"Nami","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",6.05,-28.8,-82.65,1],
-[722868,"Encore","Radiance","Epic","152/167",3.5,0.61,21.26,1],
-[718686,"Jewelry Bonney","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-001",17.6,-16.9,-48.99,1],
-[718682,"Gloriosa","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-052",8.22,-24.54,-74.9,1],
-[725863,"Nami (061)","Extra Booster: One Piece Heroine's Edition Vol. 2","SEC","EB05-061",10.34,-50.64,-83.04,1],
-[718683,"Yamato","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-046",14.17,-20.64,-59.29,1],
-[723428,"Seraphic Wyvern","Radiance","Epic","092/167",6.19,-2.45,-28.39,1],
-[716221,"Zapdos",S,IR,"133/128",5.17,-1.42,-21.56,1],
-[716224,"Chandelure",S,IR,"137/128",2.13,-0.15,-6.71,1],
-[722918,"The Ball","Radiance","Epic","146/167",11.5,-3.48,-23.26,1],
-[716228,"Maushold",S,IR,"146/128",10.69,-1.95,-15.44,1],
-[718679,"Miss Buckingham Stussy","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-006",3.73,-31.09,-89.28,1],
-[717621,"Kommo-o",S,IR,"143/128",1.59,-0.08,-5,1],
-[722891,"Last Caress","Radiance","Epic","154/167",4.68,0.22,5,1],
-[722644,"Nico Robin (010) (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","L","EB05-010",92.17,-158.66,-63.26,1],
-[716226,"Galarian Meowth",S,IR,"141/128",5.73,-1.7,-22.89,1],
-[722279,"Blade of the Exile","Radiance","Epic","150/167",48.69,-5.73,-10.52,1],
-[728606,"DON!! Card (Gold)","Extra Booster: One Piece Heroine's Edition Vol. 2","","",24.97,24.97,0,1],
-[716219,"Moltres",S,IR,"130/128",5.24,-0.95,-15.32,1],
-[721334,"Dockside Lock-Up","Radiance","Epic","136/167",3.3,-0.85,-20.47,1],
-[722321,"Neeko, Blending In","Radiance","Epic","167/167",7.59,-3.79,-33.29,1],
+[718683,"Yamato","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-046",14.4,-8.44,-36.94,1],
+[721334,"Dockside Lock-Up","Radiance","Epic","136/167",3.07,-1.12,-26.67,1],
+[696683,"Lapras",S,IR,"131/128",5.1,-1.24,-19.6,1],
+[725863,"Nami (061)","Extra Booster: One Piece Heroine's Edition Vol. 2","SEC","EB05-061",10.75,-22.42,-67.58,1],
+[722644,"Nico Robin (010) (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","L","EB05-010",83,-128.86,-60.82,1],
+[696686,"Hisuian Zorua",S,IR,"145/128",4.02,-0.64,-13.77,1],
+[722313,"Kai'Sa, Rebel (SP)","Radiance","Showcase","SP4/005",28.64,-9.15,-24.21,1],
+[716228,"Maushold",S,IR,"146/128",10.59,-1.49,-12.37,1],
+[722872,"Evelynn, In Control (SP)","Radiance","Showcase","SP3/005",28.85,-4.29,-12.94,1],
+[718686,"Jewelry Bonney","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-001",17.51,-15.29,-46.62,1],
+[718684,"Nico Robin (016)","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-016",7.3,-34.58,-82.56,1],
+[722844,"Evelynn, Agony's Embrace","Radiance","Rare","153/167",0.18,0.03,18.18,1],
+[718678,"Shirahoshi","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-014",1.89,-12.78,-87.14,1],
+[722337,"Seraphine, Not Alone (SP)","Radiance","Showcase","SP5/005",17.63,-5.87,-24.97,1],
+[716224,"Chandelure",S,IR,"137/128",1.84,-0.32,-14.84,1],
+[716221,"Zapdos",S,IR,"133/128",4.66,-1.69,-26.59,1],
+[716219,"Moltres",S,IR,"130/128",4.62,-1.97,-29.87,1],
+[722279,"Blade of the Exile","Radiance","Epic","150/167",44.01,-13.97,-24.09,1],
+[722845,"Ahri, Confident (SP)","Radiance","Showcase","SP1/005",49.68,-0.96,-1.9,1],
+[722905,"Realm of Death","Radiance","Epic","144/167",12.96,-4.02,-23.68,1],
+[716220,"Articuno",S,IR,"132/128",4.5,-2.01,-30.9,1],
+[725432,"Boa Hancock (OP13-051) (Mini Case Set Vol. 3 Sunohara Artwork)","One Piece Promotion Cards","R","OP13-051",10.85,10.85,0,1],
+[718681,"Nami","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",7.57,-1.51,-16.62,1],
+[718679,"Miss Buckingham Stussy","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-006",3.49,-24.96,-87.73,1],
+[721345,"Seraphine, Starry-Eyed Songstress","Radiance","Rare","151/167",0.22,0.01,6.67,1],
+[716218,"Alolan Exeggutor",S,IR,"129/128",1.55,-0.75,-32.73,1],
+[714360,"Alolan Meowth",S,IR,"139/128",6.48,-0.45,-6.45,1],
+[723428,"Seraphic Wyvern","Radiance","Epic","092/167",5.78,-2.84,-32.9,1],
+[716223,"Morpeko",S,IR,"135/128",4.46,-1.24,-21.81,1],
+[718682,"Gloriosa","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-052",8.32,-0.24,-2.77,1],
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
-var BACKUP_DATE = "Nov 5, 2026";   // date of the backup list above (shown when live data isn't available)
+var BACKUP_DATE = "Nov 6, 2026";   // date of the backup list above (shown when live data isn't available)
 
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 

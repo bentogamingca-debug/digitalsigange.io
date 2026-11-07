@@ -57,41 +57,41 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Nov 6 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
-   Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (all categories converted at 1 USD = 1.3966 CAD) */
+/* Built-in backup list (Collectr trending, Nov 7 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
+   Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (all categories converted at 1 USD = 1.4066 CAD) */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[718683,"Yamato","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-046",14.4,-8.44,-36.94,1],
-[721334,"Dockside Lock-Up","Radiance","Epic","136/167",3.07,-1.12,-26.67,1],
-[696683,"Lapras",S,IR,"131/128",5.1,-1.24,-19.6,1],
-[725863,"Nami (061)","Extra Booster: One Piece Heroine's Edition Vol. 2","SEC","EB05-061",10.75,-22.42,-67.58,1],
-[722644,"Nico Robin (010) (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","L","EB05-010",83,-128.86,-60.82,1],
-[696686,"Hisuian Zorua",S,IR,"145/128",4.02,-0.64,-13.77,1],
-[722313,"Kai'Sa, Rebel (SP)","Radiance","Showcase","SP4/005",28.64,-9.15,-24.21,1],
-[716228,"Maushold",S,IR,"146/128",10.59,-1.49,-12.37,1],
-[722872,"Evelynn, In Control (SP)","Radiance","Showcase","SP3/005",28.85,-4.29,-12.94,1],
-[718686,"Jewelry Bonney","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-001",17.51,-15.29,-46.62,1],
-[718684,"Nico Robin (016)","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-016",7.3,-34.58,-82.56,1],
-[722844,"Evelynn, Agony's Embrace","Radiance","Rare","153/167",0.18,0.03,18.18,1],
-[718678,"Shirahoshi","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-014",1.89,-12.78,-87.14,1],
-[722337,"Seraphine, Not Alone (SP)","Radiance","Showcase","SP5/005",17.63,-5.87,-24.97,1],
-[716224,"Chandelure",S,IR,"137/128",1.84,-0.32,-14.84,1],
-[716221,"Zapdos",S,IR,"133/128",4.66,-1.69,-26.59,1],
-[716219,"Moltres",S,IR,"130/128",4.62,-1.97,-29.87,1],
-[722279,"Blade of the Exile","Radiance","Epic","150/167",44.01,-13.97,-24.09,1],
-[722845,"Ahri, Confident (SP)","Radiance","Showcase","SP1/005",49.68,-0.96,-1.9,1],
-[722905,"Realm of Death","Radiance","Epic","144/167",12.96,-4.02,-23.68,1],
-[716220,"Articuno",S,IR,"132/128",4.5,-2.01,-30.9,1],
-[725432,"Boa Hancock (OP13-051) (Mini Case Set Vol. 3 Sunohara Artwork)","One Piece Promotion Cards","R","OP13-051",10.85,10.85,0,1],
-[718681,"Nami","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",7.57,-1.51,-16.62,1],
-[718679,"Miss Buckingham Stussy","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-006",3.49,-24.96,-87.73,1],
-[721345,"Seraphine, Starry-Eyed Songstress","Radiance","Rare","151/167",0.22,0.01,6.67,1],
-[716218,"Alolan Exeggutor",S,IR,"129/128",1.55,-0.75,-32.73,1],
-[714360,"Alolan Meowth",S,IR,"139/128",6.48,-0.45,-6.45,1],
-[723428,"Seraphic Wyvern","Radiance","Epic","092/167",5.78,-2.84,-32.9,1],
-[716223,"Morpeko",S,IR,"135/128",4.46,-1.24,-21.81,1],
-[718682,"Gloriosa","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-052",8.32,-0.24,-2.77,1],
+[718686,"Jewelry Bonney","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-001",18.19,-16.3,-47.27,1],
+[722644,"Nico Robin (010) (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","L","EB05-010",69.85,-124.41,-64.04,1],
+[722872,"Evelynn, In Control (SP)","Radiance","Showcase","SP3/005",29.23,-3.56,-10.85,1],
+[718678,"Shirahoshi","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-014",1.59,-8.71,-84.56,1],
+[722347,"Ziggs, Short-Fused (Alternate Art)","Radiance","Showcase","023a/167",4.52,-0.24,-5.03,1],
+[726565,"Eevee","Delta Reign",IR,"114/103",50.07,-34.25,-40.62,1],
+[726552,"Legendary Trench (Right)","Delta Reign","Uncommon","099/103",2.33,-1.88,-44.67,1],
+[726527,"Giratina","Delta Reign","Rare","045/103",1.88,-0.23,-10.67,1],
+[718684,"Nico Robin (016)","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-016",7.65,-27.13,-78,1],
+[722337,"Seraphine, Not Alone (SP)","Radiance","Showcase","SP5/005",17.37,-5.3,-23.39,1],
+[722905,"Realm of Death","Radiance","Epic","144/167",12.87,-6.03,-31.92,1],
+[725863,"Nami (061)","Extra Booster: One Piece Heroine's Edition Vol. 2","SEC","EB05-061",10.94,-14.02,-56.17,1],
+[722847,"Akali, Brash (SP)","Radiance","Showcase","SP2/005",27.09,-3.19,-10.54,1],
+[726563,"Groudon","Delta Reign",IR,"111/103",48.42,-10.65,-18.03,1],
+[718683,"Yamato","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-046",15.54,-0.01,-0.09,1],
+[718681,"Nami","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",7.57,1.45,23.68,1],
+[726567,"Kecleon","Delta Reign",IR,"117/103",39.88,-0.2,-0.49,1],
+[718682,"Gloriosa","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-052",9,1.31,17,1],
+[722313,"Kai'Sa, Rebel (SP)","Radiance","Showcase","SP4/005",29.24,-6.74,-18.73,1],
+[726543,"Mega Rayquaza ex","Delta Reign","Double Rare","084/103",22.35,11.01,97.15,1],
+[718680,"Alvida","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-021",10.7,-5.2,-32.71,1],
+[726527,"Giratina","Delta Reign","Rare","045/103",2.11,-2.81,-57.14,1],
+[722279,"Blade of the Exile","Radiance","Epic","150/167",42.1,-12.67,-23.14,1],
+[726722,"Legendary Pyroduct (Right)","Delta Reign","Uncommon","095/103",2.86,-4.16,-59.32,1],
+[726550,"Legendary Pyroduct (Left)","Delta Reign","Uncommon","094/103",2.8,-4.22,-60.12,1],
+[722891,"Last Caress","Radiance","Epic","154/167",4.29,-0.97,-18.45,1],
+[722275,"Ahri, Confident","Radiance","Rare","038/167",0.37,-0.06,-13.33,1],
+[722845,"Ahri, Confident (SP)","Radiance","Showcase","SP1/005",50.43,-4.84,-8.76,1],
+[726786,"Legendary Trench (Left)","Delta Reign","Uncommon","098/103",2.8,-2.83,-50.25,1],
+[725205,"DON!! Card (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","","",2.26,-122.22,-98.18,1],
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
-var BACKUP_DATE = "Nov 6, 2026";   // date of the backup list above (shown when live data isn't available)
+var BACKUP_DATE = "Nov 7, 2026";   // date of the backup list above (shown when live data isn't available)
 
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 

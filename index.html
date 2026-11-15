@@ -57,41 +57,41 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Nov 14 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
+/* Built-in backup list (Collectr trending, Nov 15 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
    Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (all categories converted at 1 USD = 1.42 CAD, rate set manually) */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[726543,"Mega Rayquaza ex","Delta Reign","Double Rare","084/103",7.47,-15.09,-66.9,1],
-[716221,"Zapdos",S,IR,"133/128",4.27,-0.43,-9.06,1],
-[732651,"Ahri, Nine-Tailed Fox","Riftbound x K/DA: Couture Collection","Showcase","001*/005",424.94,424.94,0,1],
-[718684,"Nico Robin (016)","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-016",6.12,-1.6,-20.77,1],
-[726563,"Groudon","Delta Reign",IR,"111/103",27.69,-21.19,-43.35,1],
-[722644,"Nico Robin (010) (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","L","EB05-010",57.51,-13.01,-18.45,1],
-[718682,"Gloriosa","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-052",7.61,-1.48,-16.25,1],
-[721345,"Seraphine, Starry-Eyed Songstress","Radiance","Rare","151/167",0.21,-0.01,-6.25,1],
-[722313,"Kai'Sa, Rebel (SP)","Radiance","Showcase","SP4/005",25.09,-4.43,-15.01,1],
-[723428,"Seraphic Wyvern","Radiance","Epic","092/167",2.97,-2.74,-48.01,1],
-[732653,"Evelynn, Agony's Embrace","Riftbound x K/DA: Couture Collection","Showcase","002*/005",425.99,425.99,0,1],
-[726567,"Kecleon","Delta Reign",IR,"117/103",41.58,1.32,3.28,1],
-[718681,"Nami","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",6.48,-1.16,-15.24,1],
-[726559,"Growlithe","Delta Reign",IR,"106/103",21.07,-6.18,-22.67,1],
-[716219,"Moltres",S,IR,"130/128",3.86,-1.39,-26.49,1],
-[722279,"Blade of the Exile","Radiance","Epic","150/167",18.94,-23.56,-55.43,1],
-[718683,"Yamato","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-046",10.81,-4.88,-31.13,1],
-[716220,"Articuno",S,IR,"132/128",3.12,-1.6,-33.93,1],
-[732655,"Packed Amphitheater","Riftbound x K/DA: Couture Collection","Showcase","005*/005",424.22,424.22,0,1],
-[726216,"Nami (055) (Kentaro Yabuki)","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",88.1,-10.99,-11.09,1],
-[731799,"Kyogre","Mega Evolution Promos","Promo","117",11.4,11.4,0,1],
-[732652,"Kai'Sa, Daughter of the Void","Riftbound x K/DA: Couture Collection","Showcase","003*/005",425.99,425.99,0,1],
-[732654,"Akali, Rogue Assassin","Riftbound x K/DA: Couture Collection","Showcase","004*/005",424.94,424.94,0,1],
-[725432,"Boa Hancock (OP13-051) (Mini Case Set Vol. 3 Sunohara Artwork)","One Piece Promotion Cards","R","OP13-051",9.87,-0.71,-6.71,1],
-[696683,"Lapras",S,IR,"131/128",4.27,-0.85,-16.62,1],
-[722321,"Neeko, Blending In","Radiance","Epic","167/167",5.71,-1.63,-22.24,1],
-[728608,"DON!! Card (Alternate Art) (Gold)","Extra Booster: One Piece Heroine's Edition Vol. 2","","",52.6,4.42,9.17,1],
-[718686,"Jewelry Bonney","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-001",9.6,-8.76,-47.72,1],
-[725863,"Nami (061)","Extra Booster: One Piece Heroine's Edition Vol. 2","SEC","EB05-061",6.39,-4.66,-42.16,1],
-[726565,"Eevee","Delta Reign",IR,"114/103",35.06,-15.49,-30.65,1],
+[722313,"Kai'Sa, Rebel (SP)","Radiance","Showcase","SP4/005",23.59,-5.68,-19.41,1],
+[732651,"Ahri, Nine-Tailed Fox","Riftbound x K/DA: Couture Collection","Showcase","001*/005",195.6,195.6,0,1],
+[718680,"Alvida","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-021",5.92,-3.61,-37.85,1],
+[722644,"Nico Robin (010) (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","L","EB05-010",57.2,-9.81,-14.64,1],
+[716228,"Maushold",S,IR,"146/128",6.53,-2.58,-28.35,1],
+[718681,"Nami","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",6.45,-1.56,-19.5,1],
+[710861,"Monkey.D.Luffy (093)","The World's Strongest Warriors","SR","OP17-093",1.76,-0.33,-15.65,1],
+[726567,"Kecleon","Delta Reign",IR,"117/103",41.22,15.45,59.94,1],
+[718686,"Jewelry Bonney","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-001",9.1,-4.6,-33.58,1],
+[722316,"Mind Rune (R03a)","Radiance","Showcase","R03a",4.5,-1.35,-23.06,1],
+[721340,"Orianna, Lady of Clockwork","Radiance","Rare","145/167",0.2,-0.03,-12.5,1],
+[696683,"Lapras",S,IR,"131/128",4.29,-0.65,-13.22,1],
+[716226,"Galarian Meowth",S,IR,"141/128",4.93,-1.28,-20.59,1],
+[726543,"Mega Rayquaza ex","Delta Reign","Double Rare","084/103",8.45,0.21,2.59,1],
+[718683,"Yamato","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-046",10.25,-4.79,-31.82,1],
+[732654,"Akali, Rogue Assassin","Riftbound x K/DA: Couture Collection","Showcase","004*/005",218.68,218.68,0,1],
+[716219,"Moltres",S,IR,"130/128",4.22,-0.28,-6.31,1],
+[723428,"Seraphic Wyvern","Radiance","Epic","092/167",4.39,-0.72,-14.17,1],
+[718679,"Miss Buckingham Stussy","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-006",2.26,-1.26,-35.89,1],
+[718684,"Nico Robin (016)","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-016",6.28,-1.58,-20.07,1],
+[732652,"Kai'Sa, Daughter of the Void","Riftbound x K/DA: Couture Collection","Showcase","003*/005",183.18,183.18,0,1],
+[718682,"Gloriosa","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-052",7.43,-1.82,-19.66,1],
+[716220,"Articuno",S,IR,"132/128",4.05,-0.1,-2.4,1],
+[732655,"Packed Amphitheater","Riftbound x K/DA: Couture Collection","Showcase","005*/005",211.57,211.57,0,1],
+[716221,"Zapdos",S,IR,"133/128",3.9,-0.75,-16.16,1],
+[716224,"Chandelure",S,IR,"137/128",1.75,-0.16,-8.21,1],
+[732653,"Evelynn, Agony's Embrace","Riftbound x K/DA: Couture Collection","Showcase","002*/005",223.65,223.65,0,1],
+[731799,"Kyogre","Mega Evolution Promos","Promo","117",11.15,11.15,0,1],
+[722918,"The Ball","Radiance","Epic","146/167",9.34,-1.53,-14.1,1],
+[725863,"Nami (061)","Extra Booster: One Piece Heroine's Edition Vol. 2","SEC","EB05-061",7.4,-2.68,-26.62,1],
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
-var BACKUP_DATE = "Nov 14, 2026";   // date of the backup list above (shown when live data isn't available)
+var BACKUP_DATE = "Nov 15, 2026";   // date of the backup list above (shown when live data isn't available)
 
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 

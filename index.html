@@ -57,41 +57,41 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Nov 17 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
-   Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (all categories converted at 1 USD = 1.4288 CAD, XE mid-market rate Nov 17 2026 19:06 UTC) */
+/* Built-in backup list (Collectr trending, Nov 18 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
+   Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (all categories converted at 1 USD = 1.4288 CAD, XE mid-market rate, last published Nov 17 2026 19:06 UTC) */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[726543,"Mega Rayquaza ex","Delta Reign","Double Rare","084/103",7.6,-2.21,-22.56,1],
-[718679,"Miss Buckingham Stussy","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-006",2.67,-0.97,-26.67,1],
-[726565,"Eevee","Delta Reign",IR,"114/103",31.09,-10.64,-25.5,1],
-[718682,"Gloriosa","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-052",9.24,-0.71,-7.17,1],
-[722644,"Nico Robin (010) (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","L","EB05-010",53.08,-13.9,-20.76,1],
-[718683,"Yamato","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-046",10.84,-3.16,-22.55,1],
-[732653,"Evelynn, Agony's Embrace","Riftbound x K/DA: Couture Collection","Showcase","002*/005",216.22,216.22,0,1],
-[716220,"Articuno",S,IR,"132/128",3.8,-0.09,-2.21,1],
-[714360,"Alolan Meowth",S,IR,"139/128",4.57,-0.89,-16.23,1],
-[716221,"Zapdos",S,IR,"133/128",4.04,-0.69,-14.5,1],
-[722337,"Seraphine, Not Alone (SP)","Radiance","Showcase","SP5/005",13.75,-4.39,-24.19,1],
-[725863,"Nami (061)","Extra Booster: One Piece Heroine's Edition Vol. 2","SEC","EB05-061",8.22,-0.21,-2.54,1],
-[732655,"Packed Amphitheater","Riftbound x K/DA: Couture Collection","Showcase","005*/005",140.02,140.02,0,1],
-[652821,"Defy (Foil)","Origins","Common","045/298",11.79,-0.2,-1.67,1],
-[696683,"Lapras",S,IR,"131/128",4.34,-0.21,-4.7,1],
-[731799,"Kyogre","Mega Evolution Promos","Promo","117",10.36,10.36,0,1],
-[718686,"Jewelry Bonney","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-001",7.72,-7.26,-48.47,1],
-[722845,"Ahri, Confident (SP)","Radiance","Showcase","SP1/005",36.53,-8.33,-18.57,1],
-[718684,"Nico Robin (016)","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-016",9.97,0.94,10.44,1],
-[732651,"Ahri, Nine-Tailed Fox","Riftbound x K/DA: Couture Collection","Showcase","001*/005",140.01,140.01,0,1],
-[726567,"Kecleon","Delta Reign",IR,"117/103",47.66,12.22,34.46,1],
-[728608,"DON!! Card (Alternate Art) (Gold)","Extra Booster: One Piece Heroine's Edition Vol. 2","","",51.49,-2.71,-5.01,1],
-[716219,"Moltres",S,IR,"130/128",4.16,-0.33,-7.32,1],
+[732655,"Packed Amphitheater","Riftbound x K/DA: Couture Collection","Showcase","005*/005",98.59,98.59,0,1],
+[732651,"Ahri, Nine-Tailed Fox","Riftbound x K/DA: Couture Collection","Showcase","001*/005",122.85,122.85,0,1],
+[652898,"Thousand-Tailed Watcher","Origins","Rare","116/298",35.53,2.9,8.89,1],
+[718681,"Nami","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",7.57,0.11,1.53,1],
+[723428,"Seraphic Wyvern","Radiance","Epic","092/167",6.27,3.14,100.46,1],
+[716221,"Zapdos",S,IR,"133/128",4.24,-0.44,-9.45,1],
 [732652,"Kai'Sa, Daughter of the Void","Riftbound x K/DA: Couture Collection","Showcase","003*/005",159.37,159.37,0,1],
-[718680,"Alvida","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-021",7.37,-0.69,-8.51,1],
-[732654,"Akali, Rogue Assassin","Riftbound x K/DA: Couture Collection","Showcase","004*/005",162.88,162.88,0,1],
-[716218,"Alolan Exeggutor",S,IR,"129/128",1.6,-0.13,-7.44,1],
-[652898,"Thousand-Tailed Watcher (Foil)","Origins","Rare","116/298",36.15,3.27,9.95,1],
-[718681,"Nami","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",8.74,0.6,7.37,1],
-[652821,"Defy (Normal)","Origins","Common","045/298",4.26,0.31,7.97,1],
+[725863,"Nami (061)","Extra Booster: One Piece Heroine's Edition Vol. 2","SEC","EB05-061",7.77,-0.49,-5.88,1],
+[716219,"Moltres",S,IR,"130/128",4.52,0.04,0.96,1],
+[718682,"Gloriosa","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-052",9.06,-0.47,-4.95,1],
+[732654,"Akali, Rogue Assassin","Riftbound x K/DA: Couture Collection","Showcase","004*/005",100,100,0,1],
+[696683,"Lapras",S,IR,"131/128",4.23,-1.09,-20.43,1],
+[725434,"Boa Hancock (OP13-051) (Mini Case Set Vol. 3 Ryuda Artwork)","One Piece Promotion Cards","R","OP13-051",5.77,-0.86,-12.93,1],
+[685589,"Sprite Fountain","Unleashed","Uncommon","078/219",10.79,5.43,101.33,1],
+[709836,"Rocks.D.Xebec","The World's Strongest Warriors","SEC","OP17-118",16.22,0.46,2.9,1],
+[716218,"Alolan Exeggutor",S,IR,"129/128",1.41,-0.24,-14.66,1],
+[723148,"Nami (061) (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","SEC","EB05-061",33.68,-8.54,-20.24,1],
+[731799,"Kyogre","Mega Evolution Promos","Promo","117",9.99,-3.26,-24.6,1],
+[726543,"Mega Rayquaza ex","Delta Reign","Double Rare","084/103",7.99,-3.54,-30.73,1],
+[696685,"Lycanroc",S,IR,"138/128",1.24,-0.44,-26.27,1],
+[726216,"Nami (055) (Kentaro Yabuki)","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-055",87.61,-3.67,-4.02,1],
+[722644,"Nico Robin (010) (Alternate Art)","Extra Booster: One Piece Heroine's Edition Vol. 2","L","EB05-010",52.92,-12.42,-19,1],
+[718683,"Yamato","Extra Booster: One Piece Heroine's Edition Vol. 2","SR","EB05-046",9.63,-3.44,-26.34,1],
+[685589,"Sprite Fountain","Unleashed","Uncommon","078/219",10.36,2.14,26.09,1],
+[710585,"Loki","The World's Strongest Warriors","SEC","OP17-119",17.75,-2.99,-14.4,1],
+[716220,"Articuno",S,IR,"132/128",3.57,-0.34,-8.76,1],
+[732653,"Evelynn, Agony's Embrace","Riftbound x K/DA: Couture Collection","Showcase","002*/005",187.16,187.16,0,1],
+[666489,"Fizz - Trickster","Spiritforged","Rare","140/221",6.43,1.6,33.14,1],
+[714360,"Alolan Meowth",S,IR,"139/128",4.57,-1.09,-19.19,1],
+[716228,"Maushold",S,IR,"146/128",6.76,-0.89,-11.59,1],
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
-var BACKUP_DATE = "Nov 17, 2026";   // date of the backup list above (shown when live data isn't available)
+var BACKUP_DATE = "Nov 18, 2026";   // date of the backup list above (shown when live data isn't available)
 
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 

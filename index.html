@@ -57,41 +57,41 @@ var RATE_URLS = [
   {url:"https://open.er-api.com/v6/latest/USD", get:function(d){return d.rates.CAD}}
 ];
 
-/* Built-in backup list (Collectr trending, Nov 22 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
-   Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (all categories converted at 1 USD = 1.4341 CAD, XE mid-market rate Nov 21 2026 21:29 UTC) */
+/* Built-in backup list (Collectr trending, Nov 23 2026 - first 10 of each category 3/68/89, shuffled) - shown instantly on load and kept if the live pull fails.
+   Row: [id, name, set, rarity, num, price CAD, change CAD, change %, 1 = already CAD]  (all categories converted at 1 USD = 1.4354 CAD, XE mid-market rate Nov 23 2026 13:37 UTC) */
 var S="30th Celebration",IR="Illustration Rare",PR="Pikachu Rare",RAW=[
-[732655,"Packed Amphitheater","Riftbound x K/DA: Couture Collection","Showcase","005*/005",51.66,-162.01,-75.82,1],
-[722845,"Ahri, Confident (SP)","Radiance","Showcase","SP1/005",34.62,-3.36,-8.84,1],
-[722872,"Evelynn, In Control (SP)","Radiance","Showcase","SP3/005",19.22,-3.74,-16.3,1],
-[733000,"Sleeptids","The Dominance of God","R","OP18-093",0.9,0.9,0,1],
-[732976,"Mr.0 & Ms. All Sunday","The Dominance of God","SR","OP18-046",3.51,3.51,0,1],
-[722337,"Seraphine, Not Alone (SP)","Radiance","Showcase","SP5/005",10.63,-1.82,-14.63,1],
-[716221,"Zapdos",S,IR,"133/128",3.74,-0.2,-5.09,1],
-[716224,"Chandelure",S,IR,"137/128",1.74,-0.03,-1.63,1],
-[714360,"Alolan Meowth",S,IR,"139/128",4.59,-0.24,-5.04,1],
-[732996,"Saint Gunko (084)","The Dominance of God","SR","OP18-084",5.74,5.74,0,1],
-[722847,"Akali, Brash (SP)","Radiance","Showcase","SP2/005",20.35,-1.58,-7.19,1],
-[722318,"Mordekaiser, Dominating","Radiance","Epic","137/167",13.39,10.9,436.78,1],
-[732961,"Nefeltari Vivi","The Dominance of God","SR","OP18-011",2.54,2.54,0,1],
-[732985,"Saint Gunko (065)","The Dominance of God","SR","OP18-065",4.12,4.12,0,1],
-[732652,"Kai'Sa, Daughter of the Void","Riftbound x K/DA: Couture Collection","Showcase","003*/005",113.93,-71.07,-38.42,1],
-[716220,"Articuno",S,IR,"132/128",3.63,-0.46,-11.23,1],
-[732653,"Evelynn, Agony's Embrace","Riftbound x K/DA: Couture Collection","Showcase","002*/005",97.32,-128.55,-56.91,1],
-[733015,"Monkey.D.Luffy (118)","The Dominance of God","SEC","OP18-118",11.6,11.6,0,1],
-[732969,"Franky (034)","The Dominance of God","SR","OP18-034",1.42,1.42,0,1],
-[716219,"Moltres",S,IR,"130/128",4.55,0.29,6.73,1],
-[696683,"Lapras",S,IR,"131/128",4.32,-0.01,-0.33,1],
-[733375,"Monkey.D.Luffy (OP18 4th Anniversary)","One Piece Promotion Cards","PR","P-161",16.76,16.76,0,1],
-[712892,"Nico Robin","The Dominance of God","SR","OP18-031",3.4,-39.61,-92.1,1],
-[716228,"Maushold",S,IR,"146/128",6.87,0.27,4.13,1],
-[717621,"Kommo-o",S,IR,"143/128",1.41,0.04,3.16,1],
-[716223,"Morpeko",S,IR,"135/128",2.97,-0.23,-7.17,1],
-[712891,"Saint Shamrock","The Dominance of God","SEC","OP18-119",38.91,-39.95,-50.66,1],
-[732654,"Akali, Rogue Assassin","Riftbound x K/DA: Couture Collection","Showcase","004*/005",77.79,-143.07,-64.78,1],
-[732651,"Ahri, Nine-Tailed Fox","Riftbound x K/DA: Couture Collection","Showcase","001*/005",92.2,-105.35,-53.33,1],
-[714358,"Meowth",S,IR,"144/128",6.05,0.92,17.88,1],
+[652821,"Defy (Foil)","Origins","Common","045/298",11.63,-0.53,-4.37,1],
+[732652,"Kai'Sa, Daughter of the Void","Riftbound x K/DA: Couture Collection","Showcase","003*/005",103.93,-71.21,-40.66,1],
+[722872,"Evelynn, In Control (SP)","Radiance","Showcase","SP3/005",18.79,-4.05,-17.72,1],
+[716220,"Articuno",S,IR,"132/128",3.53,-0.59,-14.29,1],
+[696683,"Lapras",S,IR,"131/128",4.08,-0.65,-13.68,1],
+[732985,"Saint Gunko (065)","The Dominance of God","SR","OP18-065",3.9,3.9,0,1],
+[685589,"Sprite Fountain (Foil)","Unleashed","Uncommon","078/219",13.13,3.78,40.34,1],
+[716227,"Gholdengo",S,IR,"142/128",1.39,-0.1,-6.73,1],
+[716221,"Zapdos",S,IR,"133/128",3.36,-0.96,-22.26,1],
+[685589,"Sprite Fountain (Normal)","Unleashed","Uncommon","078/219",9.6,1.18,13.97,1],
+[712892,"Nico Robin","The Dominance of God","SR","OP18-031",4.13,-38.91,-90.4,1],
+[733015,"Monkey.D.Luffy (118)","The Dominance of God","SEC","OP18-118",18.53,18.53,0,1],
+[735247,"Sleeptids","The Dominance of God","R","OP18-093",0.55,0.55,0,1],
+[735251,"Saint Shamrock (Alternate Art)","The Dominance of God","SEC","OP18-119",72.86,72.86,0,1],
+[735246,"Sleeptids (These Things Are a Vision of the World...)","The Dominance of God","R","OP18-093",0.65,0.65,0,1],
+[735162,"Saint Gunko (065) (Alternate Art)","The Dominance of God","SR","OP18-065",41.47,41.47,0,1],
+[732996,"Saint Gunko (084)","The Dominance of God","SR","OP18-084",6.85,6.85,0,1],
+[722313,"Kai'Sa, Rebel (SP)","Radiance","Showcase","SP4/005",21.4,-1.71,-7.39,1],
+[716224,"Chandelure",S,IR,"137/128",1.72,0.16,10.09,1],
+[732651,"Ahri, Nine-Tailed Fox","Riftbound x K/DA: Couture Collection","Showcase","001*/005",92.28,-75.66,-45.05,1],
+[714360,"Alolan Meowth",S,IR,"139/128",4,-1.25,-23.77,1],
+[712891,"Saint Shamrock","The Dominance of God","SEC","OP18-119",53.1,-25.84,-32.73,1],
+[735289,"DON!! Card (Alternate Art) (Gold)","The Dominance of God","","",8.6,8.6,0,1],
+[652821,"Defy (Normal)","Origins","Common","045/298",4.05,0.49,13.71,1],
+[716219,"Moltres",S,IR,"130/128",4.11,-0.7,-14.63,1],
+[714358,"Meowth",S,IR,"144/128",5.43,-1.42,-20.75,1],
+[716228,"Maushold",S,IR,"146/128",6.83,-0.88,-11.36,1],
+[732653,"Evelynn, Agony's Embrace","Riftbound x K/DA: Couture Collection","Showcase","002*/005",92.13,-125.1,-57.59,1],
+[732654,"Akali, Rogue Assassin","Riftbound x K/DA: Couture Collection","Showcase","004*/005",76.06,-91.88,-54.71,1],
+[716223,"Morpeko",S,IR,"135/128",2.56,-0.7,-21.59,1],
 ].map(function(r){return{id:r[0],name:r[1],set:r[2],rarity:r[3],num:r[4],price:r[5],chg:r[6],pct:r[7],cad:r[8]}});
-var BACKUP_DATE = "Nov 22, 2026";   // date of the backup list above (shown when live data isn't available)
+var BACKUP_DATE = "Nov 23, 2026";   // date of the backup list above (shown when live data isn't available)
 
 var IMG = "https://public.getcollectr.com/public-assets/products/product_{id}.jpg?optimizer=image&format=webp&width=400&quality=80&strip=metadata";
 
